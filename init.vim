@@ -1,16 +1,16 @@
+let g:polyglot_disabled = ['jsx', 'tsx', 'js', 'ts']
 call plug#begin()
 Plug 'tpope/vim-fugitive'
+Plug 'ntpeters/vim-better-whitespace'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'huytd/vim-quickrun'
 Plug 'sheerun/vim-polyglot'
-Plug 'othree/html5.vim'
-Plug 'cakebaker/scss-syntax.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'itchyny/lightline.vim'
+Plug 'liuchengxu/vista.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'easymotion/vim-easymotion'
 Plug 'unkiwii/vim-nerdtree-sync'
@@ -26,11 +26,16 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }
 Plug 'junegunn/fzf.vim'
 Plug 't9md/vim-choosewin'
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'kaicataldo/material.vim'
 Plug 'Yggdroot/indentLine'
-Plug 'atelierbram/Base2Tone-vim'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'tyrannicaltoucan/vim-quantum'
+Plug 'takac/vim-hardtime'
+Plug 'mhinz/vim-signify'
+Plug 'mhinz/vim-startify'
+Plug 'junegunn/gv.vim'
+Plug 'machakann/vim-highlightedyank'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()
 
 filetype plugin indent on
@@ -40,18 +45,24 @@ autocmd BufNewFile,BufRead *.todo set syntax=todo
 
 " Auto remove trailing spaces
 autocmd BufWritePre * %s/\s\+$//e
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
+set updatetime=100
 set encoding=UTF-8
 set hidden
 set nobackup
 set nowritebackup
-set mouse=a " enable mouse for all mode
+" set mouse=a " enable mouse for all mode
 set cursorline
-
+set noshowmode
 set foldmethod=indent
 set foldlevel=99
 
+let NERDTreeShowHidden = 1
 let g:is_posix = 1
+let g:hardtime_default_on = 1
+let g:hardtime_showmsg = 1
+let g:hardtime_ignore_buffer_patterns = [ "CustomPatt[ae]rn", "NERD.*" , ".git/index" ]
 
 set noswapfile
 set nojoinspaces
@@ -65,6 +76,22 @@ set termguicolors
 set ignorecase
 set relativenumber
 
+
+set autowrite
+
+" Go syntax highlighting
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+
+" Auto formatting and importing
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
+
+" Status line types/signatures
+let g:go_auto_type_info = 1
 " Vim color highlighting
 let g:Hexokinase_highlighters = ['virtual']
 let g:Hexokinase_virtualText = '▩'
@@ -90,7 +117,6 @@ call esearch#out#win#map('<Enter>', 'tab')
 
 " JS config
 let g:javascript_plugin_jsdoc = 1
-let g:polyglot_disabled = ['jsx', 'tsx', 'js', 'ts']
 let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'tsx']
 
 " Custom icon for coc.nvim statusline
@@ -106,10 +132,10 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 nnoremap <ESC><ESC> :nohlsearch<CR>
-nnoremap L l
-nnoremap H h
-nnoremap l w
-nnoremap h b
+" nnoremap L l
+" nnoremap H h
+" nnoremap l w
+" nnoremap h b
 
 vnoremap p "_dP
 
@@ -307,15 +333,22 @@ function! LightLineFilename()
   return name
 endfunction
 
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 let g:lightline = {
       \ 'colorscheme': 'onehalfdark',
       \ 'active': {
-      \   'left': [ [], [ 'filename' ] ],
+      \   'left': [ ['mode', 'paste'], [ 'fileicon', 'filename' ], ['method'] ],
       \   'right': [ [], ['cocstatus', 'lineinfo', 'icongitbranch'] ]
-      \ },
-      \ 'inactive': {
-      \   'left': [ ['fileicon'], [ 'filename' ] ],
-      \   'right': []
       \ },
       \ 'component': { 'lineinfo': ' %2p%% %3l:%-2v' },
       \ 'component_function': {
@@ -325,8 +358,13 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head',
       \   'cocstatus': 'coc#status',
       \   'filename': 'LightLineFilename',
+      \   'method': 'NearestMethodOrFunction'
       \ },
-      \ }
+      \ 'separator': { 'left': "\ue0b8", 'right': "\ue0be" },
+      \ 'subseparator': { 'left': "\ue0b9", 'right': "\ue0b9" },
+      \ 'tabline_separator': { 'left': "\ue0b9", 'right': "\ue0b9" },
+      \ 'tabline_subseparator': { 'left': "\ue0bb", 'right': "\ue0bb" }
+    \ }
 
 " Use auocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
