@@ -3,7 +3,6 @@ call plug#begin()
 Plug 'tpope/vim-fugitive'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'huytd/vim-quickrun'
 Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
 Plug 'peitalin/vim-jsx-typescript'
@@ -24,18 +23,16 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'eugen0329/vim-esearch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }
 Plug 'junegunn/fzf.vim'
-Plug 't9md/vim-choosewin'
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'Yggdroot/indentLine'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'tyrannicaltoucan/vim-quantum'
-Plug 'takac/vim-hardtime'
 Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/gv.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'rlue/vim-barbaric'
+Plug 'kjssad/quantum.vim'
 call plug#end()
 
 filetype plugin indent on
@@ -57,12 +54,13 @@ set cursorline
 set noshowmode
 set foldmethod=indent
 set foldlevel=99
+set showtabline=2
 
+let g:NERDTreeWinSize=30
+let g:NERDTreeNaturalSort = 1
+let NERDTreeIgnore=['\.git$']
 let NERDTreeShowHidden = 1
 let g:is_posix = 1
-let g:hardtime_default_on = 1
-let g:hardtime_showmsg = 1
-let g:hardtime_ignore_buffer_patterns = [ "CustomPatt[ae]rn", "NERD.*" , ".git/index" ]
 
 set noswapfile
 set nojoinspaces
@@ -151,9 +149,14 @@ inoremap <C-a> <C-o>^
 nnoremap <C-k> <C-u>
 nnoremap <C-j> <C-d>
 
+
+" let g:onedark_terminal_italics = 1
+" let g:onedark_termcolors=256
+" :silent! colorscheme purify
+" hi Normal guibg=NONE ctermbg=NONE
 set background=dark
 " let g:quantum_black=1
-colo bright-quantum
+colo quantum
 
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
@@ -251,7 +254,6 @@ nnoremap <Leader>wl :wincmd l<CR>
 nnoremap <Leader>wk :wincmd k<CR>
 nnoremap <Leader>wj :wincmd j<CR>
 nnoremap <Leader>w= :wincmd =<CR>
-nnoremap <Leader>e :QuickRunExecute<CR>
 nnoremap <Leader>wb :e#<CR>
 nnoremap <Leader>qq :bd<CR>
 nnoremap <Leader>qk :call DeleteCurrentFileAndBuffer()<CR>
@@ -265,8 +267,6 @@ nnoremap <Leader>tn :tabn<CR>
 nnoremap <Leader>tp :tabp<CR>
 nnoremap <Leader>tc :tabe<CR>
 nnoremap <Leader>tx :tabclose<CR>
-" Jump window
-nmap <Leader>ww <Plug>(choosewin)
 
 " Open terminal
 nnoremap <Leader>at :call FloatTerm()<CR>
@@ -282,9 +282,6 @@ nnoremap <silent> <c-\> :call esearch#init()<CR>
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 nnoremap <silent> \ :Rg<CR>
 nnoremap <silent> <c-o> :CocList outline<CR>
-
-" Choose win
-let g:choosewin_overlay_enable = 1
 
 " NERDTree config
 let NERDTreeMinimalUI=1
@@ -313,6 +310,12 @@ function! MyFiletype()
   " return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() : '') : ''
   return ''
 endfunction
+
+" Fix folders and files weird align
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
 
 function! LightLineFilename()
   let name = ""
@@ -345,7 +348,7 @@ set statusline+=%{NearestMethodOrFunction()}
 " you can add the following line to your vimrc
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 let g:lightline = {
-      \ 'colorscheme': 'onehalfdark',
+      \ 'colorscheme': 'quantum',
       \ 'active': {
       \   'left': [ ['mode', 'paste'], [ 'fileicon', 'filename' ], ['method'] ],
       \   'right': [ [], ['cocstatus', 'lineinfo', 'icongitbranch'] ]
