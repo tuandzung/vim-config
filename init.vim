@@ -33,6 +33,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'rlue/vim-barbaric'
 Plug 'kjssad/quantum.vim'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'vim-syntastic/syntastic'
+Plug 'rhysd/vim-clang-format'
 call plug#end()
 
 filetype plugin indent on
@@ -120,6 +123,18 @@ let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'tsx']
 " Custom icon for coc.nvim statusline
 let g:coc_status_error_sign=" "
 let g:coc_status_warning_sign=" "
+
+" c++ syntax highlighting
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+
+let g:syntastic_cpp_checkers = ['cpplint']
+let g:syntastic_c_checkers = ['cpplint']
+let g:syntastic_cpp_cpplint_exec = 'cpplint'
+" The following two lines are optional. Configure it to your liking!
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " I don't use recording, don't judge me
 map q <Nop>
