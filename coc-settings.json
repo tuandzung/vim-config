@@ -1,4 +1,5 @@
 {
+  "python.pythonPath": "/Users/tuandzung/conda-env.sh",
   "coc.preferences.useQuickfixForLocations": true,
   "diagnostic.warningSign": "",
   "diagnostic.errorSign": "",
