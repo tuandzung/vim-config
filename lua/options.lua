@@ -59,6 +59,6 @@ opt.undoreload = 10000
 opt.wildoptions = 'pum'
 opt.pumblend = 1
 
-opt.clipboard = 'unnamed'
+opt.clipboard = 'unnamedplus'
 opt.shortmess:append('c')
 opt.signcolumn = 'yes'

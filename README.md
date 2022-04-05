@@ -7,6 +7,12 @@ $ cp -r .config/nvim .config/nvim-backup
 $ mv .local/share/nvim/ .local/share/nvim.bak
 ```
 
+Clone repo into `.config/nvim` folder
+
+```bash
+$ git clone https://github.com/tuandzung/vim-config.git ~/.config/nvim
+```
+
 Clone packer.nvim
 
 ```bash
