@@ -3,6 +3,15 @@ if not status_ok then
 	return
 end
 
+local present, gps = pcall(require, 'nvim-gps')
+local gps_component = nil
+if present then
+  gps_component = {
+    gps.get_location,
+    cond = gps.is_available,
+  }
+end
+
 local hide_in_narrow_panes = function()
 	return vim.fn.winwidth(0) > 80
 end
@@ -64,14 +73,14 @@ lualine.setup({
 		icons_enabled = true,
 		theme = "auto",
     section_separators = { left = "", right = "" },
-    component_separators = { left = "", right = "" },
+    component_separators = { left = "⏐", right = "⏐" },
 		disabled_filetypes = { "alpha", "dashboard", "Outline" },
 		always_divide_middle = true,
 	},
 	sections = {
 		lualine_a = { mode },
 		lualine_b = { branch },
-		lualine_c = { diagnostics },
+		lualine_c = { diagnostics, gps_component },
 		lualine_x = { diff },
 		lualine_y = {
       {

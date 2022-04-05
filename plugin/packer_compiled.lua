@@ -134,6 +134,11 @@ _G.packer_plugins = {
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/gv.vim",
     url = "https://github.com/junegunn/gv.vim"
   },
+  ["impatient.nvim"] = {
+    loaded = true,
+    path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/impatient.nvim",
+    url = "https://github.com/lewis6991/impatient.nvim"
+  },
   ["incsearch.vim"] = {
     loaded = true,
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/incsearch.vim",
@@ -149,6 +154,11 @@ _G.packer_plugins = {
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
+  ["neoscroll.nvim"] = {
+    loaded = true,
+    path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
+    url = "https://github.com/karb94/neoscroll.nvim"
+  },
   nerdcommenter = {
     loaded = true,
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/nerdcommenter",
@@ -163,6 +173,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-colorizer.lua"] = {
+    loaded = true,
+    path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
+    url = "https://github.com/norcalli/nvim-colorizer.lua"
+  },
+  ["nvim-gps"] = {
+    loaded = true,
+    path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/nvim-gps",
+    url = "https://github.com/SmiteshP/nvim-gps"
+  },
+  ["nvim-lastplace"] = {
+    loaded = true,
+    path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/nvim-lastplace",
+    url = "https://github.com/ethanholz/nvim-lastplace"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -219,6 +244,11 @@ _G.packer_plugins = {
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["toggleterm.nvim"] = {
+    loaded = true,
+    path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
+  },
   ["trouble.nvim"] = {
     loaded = true,
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/trouble.nvim",
@@ -253,11 +283,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/vim-go",
     url = "https://github.com/fatih/vim-go"
-  },
-  ["vim-hexokinase"] = {
-    loaded = true,
-    path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/vim-hexokinase",
-    url = "https://github.com/RRethy/vim-hexokinase"
   },
   ["vim-highlightedyank"] = {
     loaded = true,

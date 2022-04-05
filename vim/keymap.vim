@@ -141,36 +141,6 @@ function! DeleteCurrentFileAndBuffer()
   bdelete!
 endfunction
 
-" Create/Toggle a terminal to the bottom
-nnoremap <silent><leader>at :call ChooseTerm("term-slider", 1)<CR>
-
-" Terminal Toggle
-function! ChooseTerm(termname, slider)
-  let pane = bufwinnr(a:termname)
-  let buf = bufexists(a:termname)
-  if pane > 0
-    " pane is visible
-    if a:slider > 0
-      :exe pane . "wincmd c"
-    else
-      :exe "e #"
-    endif
-  elseif buf > 0
-    " buffer is not in pane
-    if a:slider
-      :exe "botright split"
-    endif
-    :exe "buffer " . a:termname
-  else
-    " buffer is not loaded, create
-    if a:slider
-      :exe "botright split"
-    endif
-    :terminal
-    :exe "f " a:termname
-  endif
-endfunction
-
 function! ToggleNvimTree()
   if exists(":NvimTreeToggle") == 0
     " lazy load nvim-tree

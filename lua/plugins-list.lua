@@ -103,10 +103,6 @@ require("packer").startup(function(use)
   use("haya14busa/incsearch.vim")
   use("tpope/vim-abolish")
   use("scrooloose/nerdcommenter")
-  use({
-    "RRethy/vim-hexokinase",
-    run = 'make hexokinase'
-  })
   use("mhinz/vim-startify")
   use("junegunn/gv.vim")
   use("machakann/vim-highlightedyank")
@@ -138,4 +134,13 @@ require("packer").startup(function(use)
     'scalameta/nvim-metals',
     requires = { 'nvim-lua/plenary.nvim' }
   })
+  use("karb94/neoscroll.nvim")
+  use("akinsho/toggleterm.nvim")
+  use("norcalli/nvim-colorizer.lua")
+  use {
+    "SmiteshP/nvim-gps",
+    requires = "nvim-treesitter/nvim-treesitter"
+  }
+  use("ethanholz/nvim-lastplace")
+  use("lewis6991/impatient.nvim")
 end)
