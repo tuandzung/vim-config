@@ -141,4 +141,5 @@ require('packer').startup(function(use)
     use('ethanholz/nvim-lastplace')
     use('lewis6991/impatient.nvim')
     use('williamboman/nvim-lsp-installer')
+    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 end)
