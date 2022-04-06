@@ -15,3 +15,8 @@ augroup lsp
   au!
   au FileType java,scala,sbt lua require("metals").initialize_or_attach({})
 augroup end
+
+autocmd FileType python lua vim.api.nvim_buf_set_keymap(0, "n", "<C-a>", require("dial.map").inc_normal("python"), {noremap = true})
+autocmd FileType javascript lua vim.api.nvim_buf_set_keymap(0, "n", "<C-a>", require("dial.map").inc_normal("js"), {noremap = true})
+autocmd FileType typescript lua vim.api.nvim_buf_set_keymap(0, "n", "<C-a>", require("dial.map").inc_normal("js"), {noremap = true})
+autocmd FileType markdown lua vim.api.nvim_buf_set_keymap(0, "n", "<C-a>", require("dial.map").inc_normal("md"), {noremap = true})

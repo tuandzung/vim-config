@@ -105,7 +105,7 @@ lualine.setup({
             filetype,
             filename,
         },
-        lualine_z = { time, tabs },
+        lualine_z = { time },
     },
     inactive_sections = {
         lualine_a = {},
@@ -113,7 +113,7 @@ lualine.setup({
         lualine_c = {},
         lualine_x = { diff },
         lualine_y = { filetype, filename },
-        lualine_z = { tabs },
+        lualine_z = {},
     },
     tabline = {},
     extensions = {},

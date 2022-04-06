@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/csv.vim",
     url = "https://github.com/chrisbra/csv.vim"
   },
+  ["dial.nvim"] = {
+    loaded = true,
+    path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/dial.nvim",
+    url = "https://github.com/monaqa/dial.nvim"
+  },
   ["editorconfig-vim"] = {
     loaded = true,
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/editorconfig-vim",
