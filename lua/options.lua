@@ -30,15 +30,15 @@ opt.relativenumber = true
 opt.autowrite = true
 
 if fn.has('multi_byte') == 1 then
-  opt.listchars = [[tab:▸ ,extends:❯,precedes:❮,nbsp:±,trail:…]]
+    opt.listchars = [[tab:▸ ,extends:❯,precedes:❮,nbsp:±,trail:…]]
 else
-  opt.listchars = [[tab:> ,extends:>,precedes:<,nbsp:.,trail:~]]
+    opt.listchars = [[tab:> ,extends:>,precedes:<,nbsp:.,trail:~]]
 end
 
 opt.list = true
 
-opt.backspace = {'eol', 'start', 'indent'}
-opt.whichwrap:append("<>hl")
+opt.backspace = { 'eol', 'start', 'indent' }
+opt.whichwrap:append('<>hl')
 
 opt.tabstop = 2
 opt.softtabstop = 2
