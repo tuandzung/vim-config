@@ -12,10 +12,6 @@ global.indent_blankline_filetype_exclude = {
 global.is_posix = 1
 global.mapleader = ' '
 
--- Vim color highlighting
-global.Hexokinase_highlighters = { 'virtual' }
-global.Hexokinase_virtualText = '▩'
-
 -- Go syntax highlighting
 global.go_highlight_fields = 1
 global.go_highlight_functions = 1
