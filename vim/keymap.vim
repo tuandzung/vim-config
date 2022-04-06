@@ -77,6 +77,8 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev B buffer
 
+nnoremap <silent><leader>ng :Neogit<CR>
+
 " Telescope
 " Fuzzy file finder
 nnoremap <silent><leader>ff :Telescope find_files hidden=true<CR>
