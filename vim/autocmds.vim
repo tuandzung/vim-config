@@ -20,3 +20,6 @@ autocmd FileType python lua vim.api.nvim_buf_set_keymap(0, "n", "<C-a>", require
 autocmd FileType javascript lua vim.api.nvim_buf_set_keymap(0, "n", "<C-a>", require("dial.map").inc_normal("js"), {noremap = true})
 autocmd FileType typescript lua vim.api.nvim_buf_set_keymap(0, "n", "<C-a>", require("dial.map").inc_normal("js"), {noremap = true})
 autocmd FileType markdown lua vim.api.nvim_buf_set_keymap(0, "n", "<C-a>", require("dial.map").inc_normal("md"), {noremap = true})
+
+autocmd FileType python,lua setlocal tabstop=4
+autocmd FileType python,lua setlocal shiftwidth=4
