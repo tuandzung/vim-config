@@ -47,6 +47,7 @@ packer.init({
 local vim = vim
 require('packer').startup(function(use)
     use('wbthomason/packer.nvim')
+    use('lewis6991/impatient.nvim')
     use({
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
@@ -64,6 +65,7 @@ require('packer').startup(function(use)
     use({
         'akinsho/nvim-bufferline.lua',
         requires = 'kyazdani42/nvim-web-devicons',
+        branch = 'main'
     })
     use('jiangmiao/auto-pairs')
     use({
@@ -132,15 +134,24 @@ require('packer').startup(function(use)
         requires = { 'nvim-lua/plenary.nvim' },
     })
     use('karb94/neoscroll.nvim')
-    use('akinsho/toggleterm.nvim')
+    use({
+        'akinsho/toggleterm.nvim',
+        branch = 'main'
+    })
     use('norcalli/nvim-colorizer.lua')
     use({
         'SmiteshP/nvim-gps',
         requires = 'nvim-treesitter/nvim-treesitter',
     })
     use('ethanholz/nvim-lastplace')
-    use('lewis6991/impatient.nvim')
     use('williamboman/nvim-lsp-installer')
     use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
     use { 'monaqa/dial.nvim', requires = 'nvim-lua/plenary.nvim' }
+    use { -- Browser
+        'glacambre/firenvim',
+        run = function()
+            vim.fn['firenvim#install'](0)
+        end
+    }
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 end)

@@ -114,10 +114,20 @@ _G.packer_plugins = {
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/dial.nvim",
     url = "https://github.com/monaqa/dial.nvim"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
+  },
   ["editorconfig-vim"] = {
     loaded = true,
     path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/editorconfig-vim",
     url = "https://github.com/editorconfig/editorconfig-vim"
+  },
+  firenvim = {
+    loaded = true,
+    path = "/home/dungnt/.local/share/nvim/site/pack/packer/start/firenvim",
+    url = "https://github.com/glacambre/firenvim"
   },
   ["github-nvim-theme"] = {
     loaded = true,
