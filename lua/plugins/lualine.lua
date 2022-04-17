@@ -35,7 +35,7 @@ local diff = {
 
 local mode = {
     'mode',
-    icon = ' ',
+    icon = '邏',
 }
 
 local filetype = {
@@ -58,22 +58,12 @@ local branch = {
     cond = hide_in_narrow_panes,
 }
 
-local time = {
-    'os.date("%a %H:%M %x")',
-    cond = hide_in_narrow_panes,
-}
-
-local tabs = {
-    'tabs',
-    cond = hide_in_narrow_panes,
-}
-
 lualine.setup({
     options = {
         icons_enabled = true,
         theme = 'auto',
-        section_separators = { left = '', right = '' },
-        component_separators = { left = '│', right = '│' },
+        section_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' },
         disabled_filetypes = { 'alpha', 'dashboard', 'Outline' },
         always_divide_middle = true,
     },
@@ -85,7 +75,7 @@ lualine.setup({
         lualine_y = {
             {
                 function()
-                    local msg = 'No Active LSP'
+                    local msg = 'None'
                     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
                     local clients = vim.lsp.get_active_clients()
                     if next(clients) == nil then
@@ -99,13 +89,13 @@ lualine.setup({
                     end
                     return msg
                 end,
-                icon = ' LSP:',
+                icon = '',
                 color = { fg = '#ffffff', gui = 'bold' },
             },
             filetype,
             filename,
         },
-        lualine_z = { time },
+        lualine_z = {},
     },
     inactive_sections = {
         lualine_a = {},
@@ -119,21 +109,3 @@ lualine.setup({
     extensions = {},
 })
 
--- Auto Command for clock
-vim.cmd([[
-  au BufEnter,BufWinEnter,WinEnter,CmdwinEnter * if bufname('%') == "NvimTree" | set laststatus=0 | else | set laststatus=2 | endif
-]])
-
--- Trigger rerender of status line every second for clock
-if _G.Statusline_timer == nil then
-    _G.Statusline_timer = vim.loop.new_timer()
-else
-    _G.Statusline_timer:stop()
-end
-_G.Statusline_timer:start(
-    0,
-    1000,
-    vim.schedule_wrap(function()
-        vim.api.nvim_command('redrawstatus')
-    end)
-)
