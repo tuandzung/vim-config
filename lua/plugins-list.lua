@@ -47,7 +47,10 @@ packer.init({
 local vim = vim
 require('packer').startup(function(use)
     use('wbthomason/packer.nvim')
+    use('nathom/filetype.nvim')
     use('lewis6991/impatient.nvim')
+    use('dstein64/vim-startuptime')
+    use('gelguy/wilder.nvim')
     use({
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
@@ -92,6 +95,10 @@ require('packer').startup(function(use)
     use({
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
+    })
+    use({
+        'RRethy/nvim-treesitter-endwise',
+        after = 'nvim-treesitter',
     })
     use('lukas-reineke/indent-blankline.nvim')
     use('tpope/vim-fugitive')
@@ -154,4 +161,5 @@ require('packer').startup(function(use)
         end,
     })
     use({ 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' })
+    use({ 'anuvyklack/pretty-fold.nvim', requires = { 'anuvyklack/nvim-keymap-amend' } })
 end)

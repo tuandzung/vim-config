@@ -59,6 +59,10 @@ opt.undoreload = 10000
 opt.wildoptions = 'pum'
 opt.pumblend = 1
 
+opt.wildmenu = true
+opt.wildmode = 'list:longest,list:full'
+opt.wildignorecase = true
+
 opt.clipboard = 'unnamedplus'
 opt.shortmess:append('c')
 opt.signcolumn = 'yes'
