@@ -47,14 +47,40 @@ packer.init({
 local vim = vim
 require('packer').startup(function(use)
     use('wbthomason/packer.nvim')
+    use('nvim-lua/plenary.nvim')
     use('nathom/filetype.nvim')
     use('lewis6991/impatient.nvim')
     use('dstein64/vim-startuptime')
-    use('gelguy/wilder.nvim')
+    -- use('gelguy/wilder.nvim')
+
     use({
-        'kyazdani42/nvim-tree.lua',
-        requires = 'kyazdani42/nvim-web-devicons',
+        'projekt0n/github-nvim-theme',
+        branch = 'main',
     })
+
+    use('kyazdani42/nvim-web-devicons')
+
+    use({
+        'nvim-lualine/lualine.nvim'
+    })
+    use({
+        'akinsho/nvim-bufferline.lua',
+        branch = 'main',
+    })
+
+    use({
+        'folke/trouble.nvim',
+        branch = 'main',
+    })
+
+    use({
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
+        branch = 'master',
+    })
+    use('RRethy/nvim-treesitter-endwise')
+
+    use('kyazdani42/nvim-tree.lua')
     use('neovim/nvim-lspconfig')
     use({
         'nvim-telescope/telescope.nvim',
@@ -65,17 +91,7 @@ require('packer').startup(function(use)
         branch = 'main',
         run = 'make',
     })
-    use({
-        'akinsho/nvim-bufferline.lua',
-        requires = 'kyazdani42/nvim-web-devicons',
-        branch = 'main',
-    })
     use('jiangmiao/auto-pairs')
-    use({
-        'folke/trouble.nvim',
-        branch = 'main',
-        requires = 'kyazdani42/nvim-web-devicons',
-    })
     use({
         'lewis6991/gitsigns.nvim',
         branch = 'main',
@@ -87,35 +103,28 @@ require('packer').startup(function(use)
         'folke/which-key.nvim',
         branch = 'main',
     })
-    use('tpope/vim-commentary')
+    use('numToStr/Comment.nvim')
     use({
         'p00f/nvim-ts-rainbow',
         branch = 'master',
     })
-    use({
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate',
-    })
-    use({
-        'RRethy/nvim-treesitter-endwise',
-        after = 'nvim-treesitter',
-    })
     use('lukas-reineke/indent-blankline.nvim')
-    use('tpope/vim-fugitive')
+    -- use('tpope/vim-fugitive')
     use('ntpeters/vim-better-whitespace')
-    use('editorconfig/editorconfig-vim')
-    use('easymotion/vim-easymotion')
+    use('gpanders/editorconfig.nvim')
+    -- use('editorconfig/editorconfig-vim')
+    -- use('easymotion/vim-easymotion')
     use('tpope/vim-surround')
     use('haya14busa/incsearch.vim')
-    use('tpope/vim-abolish')
+    -- use('tpope/vim-abolish')
     use('scrooloose/nerdcommenter')
     use('mhinz/vim-startify')
-    use('junegunn/gv.vim')
+    -- use('junegunn/gv.vim')
     use('machakann/vim-highlightedyank')
-    use({
-        'fatih/vim-go',
-        run = ':GoUpdateBinaries',
-    })
+    -- use({
+    -- 'fatih/vim-go',
+    -- run = ':GoUpdateBinaries',
+    -- })
     use({
         'hrsh7th/nvim-cmp',
         branch = 'main',
@@ -129,11 +138,7 @@ require('packer').startup(function(use)
             'saadparwaiz1/cmp_luasnip',
         },
     })
-    use('nvim-lualine/lualine.nvim')
-    use({
-        'projekt0n/github-nvim-theme',
-        branch = 'main',
-    })
+    use('sheerun/vim-polyglot')
     use('chrisbra/csv.vim')
     use('ellisonleao/glow.nvim')
     use({
@@ -148,7 +153,6 @@ require('packer').startup(function(use)
     use('norcalli/nvim-colorizer.lua')
     use({
         'SmiteshP/nvim-gps',
-        requires = 'nvim-treesitter/nvim-treesitter',
     })
     use('ethanholz/nvim-lastplace')
     use('williamboman/nvim-lsp-installer')
@@ -162,4 +166,5 @@ require('packer').startup(function(use)
     })
     use({ 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' })
     use({ 'anuvyklack/pretty-fold.nvim', requires = { 'anuvyklack/nvim-keymap-amend' } })
+    use('Xuyuanp/scrollbar.nvim')
 end)

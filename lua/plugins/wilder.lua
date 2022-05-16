@@ -12,15 +12,12 @@ local highlighters = {
     wilder.basic_highlighter(),
 }
 
-local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
+local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_palette_theme({
     highlighter = highlighters,
     highlights = {
         accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
     },
     pumblend = 20,
-    max_width = '50%',
-    min_width = '50%',
-    max_height = '30%',
     border = 'rounded',
     prompt_position = 'bottom',
     empty_message = wilder.popupmenu_empty_message_with_spinner(),
@@ -48,6 +45,7 @@ wilder.set_option(
 )
 
 wilder.set_option('pipeline', {
+    wilder.debounce(10),
     wilder.branch(
         wilder.python_file_finder_pipeline({
             file_command = vim.fn.executable('fd') == 1 and { 'fd', '-tf' } or {
