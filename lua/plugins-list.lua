@@ -103,6 +103,10 @@ require('packer').startup(function(use)
         'folke/which-key.nvim',
         branch = 'main',
     })
+    use({
+        'folke/todo-comments.nvim',
+        branch = 'main',
+    })
     use('numToStr/Comment.nvim')
     use({
         'p00f/nvim-ts-rainbow',
