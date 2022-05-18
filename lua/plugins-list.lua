@@ -113,22 +113,13 @@ require('packer').startup(function(use)
         branch = 'master',
     })
     use('lukas-reineke/indent-blankline.nvim')
-    -- use('tpope/vim-fugitive')
     use('ntpeters/vim-better-whitespace')
     use('gpanders/editorconfig.nvim')
-    -- use('editorconfig/editorconfig-vim')
-    -- use('easymotion/vim-easymotion')
     use('tpope/vim-surround')
     use('haya14busa/incsearch.vim')
-    -- use('tpope/vim-abolish')
     use('scrooloose/nerdcommenter')
     use('mhinz/vim-startify')
-    -- use('junegunn/gv.vim')
     use('machakann/vim-highlightedyank')
-    -- use({
-    -- 'fatih/vim-go',
-    -- run = ':GoUpdateBinaries',
-    -- })
     use({
         'hrsh7th/nvim-cmp',
         branch = 'main',
@@ -171,4 +162,8 @@ require('packer').startup(function(use)
     use({ 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' })
     use({ 'anuvyklack/pretty-fold.nvim', requires = { 'anuvyklack/nvim-keymap-amend' } })
     use('Xuyuanp/scrollbar.nvim')
+    use('onsails/lspkind.nvim')
+    use({
+        'nvim-orgmode/orgmode', after = 'nvim-treesitter'
+    })
 end)

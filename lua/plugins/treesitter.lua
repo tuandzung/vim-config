@@ -2,7 +2,8 @@ require('nvim-treesitter.configs').setup({
     ensure_installed = 'all',
     highlight = {
         enable = true,
-        disable = { 'lua', 'vim' },
+        disable = { 'lua', 'vim', 'org' },
+        additional_vim_regex_highlighting = { 'org' },
     },
     incremental_selection = {
         enable = false,
