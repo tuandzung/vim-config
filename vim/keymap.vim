@@ -1,4 +1,20 @@
-"
+" Save with root permission
+cnoremap w!! w ! sudo tee % > /dev/null
+
+" Insert empty lines
+nnoremap [<space> :<C-u>put! =repeat(nr2char(10), v:count1)<CR>
+nnoremap ]<space> :<C-u>put =repeat(nr2char(10), v:count1)<CR>
+
+" Copy to system clipboard
+vnoremap <C-c> "+y
+nnoremap <C-c> "+yy
+
+" Change indentation
+vnoremap < <gv
+vnoremap > >gv
+nnoremap < <<_
+nnoremap > >>_
+
 " I don't use recording, don't judge me
 map q <Nop>
 inoremap jk <ESC>
@@ -22,6 +38,12 @@ inoremap <C-f> <Right>
 inoremap <C-b> <Left>
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>^
+
+" Move line to after next line or before previous line
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
 
 " Remap scrolling
 nnoremap <C-k> <C-u>
