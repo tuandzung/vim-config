@@ -51,7 +51,7 @@ require('packer').startup(function(use)
     use('nathom/filetype.nvim')
     use('lewis6991/impatient.nvim')
     use('dstein64/vim-startuptime')
-    -- use('gelguy/wilder.nvim')
+    use('gelguy/wilder.nvim')
 
     use({
         'projekt0n/github-nvim-theme',

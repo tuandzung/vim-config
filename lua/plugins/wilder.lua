@@ -12,12 +12,15 @@ local highlighters = {
     wilder.basic_highlighter(),
 }
 
-local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_palette_theme({
+local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
     highlighter = highlighters,
     highlights = {
-        accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
+        accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#2b8dfe' } }),
     },
     pumblend = 20,
+    max_width = '50%',
+    min_width = '50%',
+    max_height = '30%',
     border = 'rounded',
     prompt_position = 'bottom',
     empty_message = wilder.popupmenu_empty_message_with_spinner(),
