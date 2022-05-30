@@ -1,5 +1,5 @@
 " Save with root permission
-cnoremap w!! w ! sudo tee % > /dev/null
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 " Insert empty lines
 nnoremap [<space> :<C-u>put! =repeat(nr2char(10), v:count1)<CR>
