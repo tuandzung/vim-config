@@ -1,3 +1,16 @@
+local lsp_installer = require('nvim-lsp-installer')
+
+lsp_installer.setup({
+    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
+
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
@@ -54,7 +67,9 @@ local servers = {
     'sumneko_lua',
     'vimls',
     'ltex',
+    'grammarly'
 }
+
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup({
