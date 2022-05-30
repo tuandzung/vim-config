@@ -166,4 +166,8 @@ require('packer').startup(function(use)
     use({
         'nvim-orgmode/orgmode', after = 'nvim-treesitter'
     })
+    use({
+        'xeluxee/competitest.nvim',
+        requires = 'MunifTanjim/nui.nvim',
+    })
 end)
