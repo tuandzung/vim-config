@@ -2,6 +2,8 @@ local vim = vim
 local global = vim.g
 local env = vim.env
 
+global.catppuccin_flavour = 'mocha' -- latte, frappe, macchiato, mocha
+
 -- Ignore for indent levels
 global.indent_blankline_filetype_exclude = {
     'help',

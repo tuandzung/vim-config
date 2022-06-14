@@ -58,6 +58,11 @@ require('packer').startup(function(use)
         branch = 'main',
     })
 
+    use({
+        'catppuccin/nvim',
+        as = 'catppuccin'
+    })
+
     use('kyazdani42/nvim-web-devicons')
 
     use({
