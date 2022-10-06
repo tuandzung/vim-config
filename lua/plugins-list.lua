@@ -153,7 +153,7 @@ require('packer').startup(function(use)
     })
     use('norcalli/nvim-colorizer.lua')
     use({
-        'SmiteshP/nvim-gps',
+        'SmiteshP/nvim-navic',
     })
     use('ethanholz/nvim-lastplace')
     use('williamboman/nvim-lsp-installer')

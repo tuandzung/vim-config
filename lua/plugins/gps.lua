@@ -1,1 +1,1 @@
-require('nvim-gps').setup()
+require('nvim-navic').setup()

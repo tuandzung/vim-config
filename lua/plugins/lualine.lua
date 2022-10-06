@@ -3,12 +3,12 @@ if not status_ok then
     return
 end
 
-local present, gps = pcall(require, 'nvim-gps')
+local present, navic = pcall(require, 'nvim-navic')
 local gps_component = nil
 if present then
     gps_component = {
-        gps.get_location,
-        cond = gps.is_available,
+        navic.get_location,
+        cond = navic.is_available,
     }
 end
 
