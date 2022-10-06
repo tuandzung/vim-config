@@ -87,6 +87,7 @@ require('packer').startup(function(use)
 
     use('kyazdani42/nvim-tree.lua')
     use('neovim/nvim-lspconfig')
+    use('jose-elias-alvarez/null-ls.nvim')
     use({
         'nvim-telescope/telescope.nvim',
         requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },

@@ -101,6 +101,8 @@ cnoreabbrev B buffer
 
 nnoremap <silent><leader>ng :Neogit<CR>
 
+nnoremap <silent><leader>bf :lua vim.lsp.buf.formatting() hidden=true<CR>
+
 " Telescope
 " Fuzzy file finder
 nnoremap <silent><leader>ff :Telescope find_files hidden=true<CR>

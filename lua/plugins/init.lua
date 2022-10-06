@@ -1,3 +1,4 @@
+require('plugins.null-ls')
 require('plugins.lualine')
 require('plugins.bufferline')
 require('plugins.telescope')
