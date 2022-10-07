@@ -60,13 +60,13 @@ require('packer').startup(function(use)
 
     use({
         'catppuccin/nvim',
-        as = 'catppuccin'
+        as = 'catppuccin',
     })
 
     use('kyazdani42/nvim-web-devicons')
 
     use({
-        'nvim-lualine/lualine.nvim'
+        'nvim-lualine/lualine.nvim',
     })
     use({
         'akinsho/nvim-bufferline.lua',
@@ -170,8 +170,10 @@ require('packer').startup(function(use)
     use('Xuyuanp/scrollbar.nvim')
     use('onsails/lspkind.nvim')
     use({
-        'nvim-orgmode/orgmode', after = 'nvim-treesitter'
+        'nvim-orgmode/orgmode',
+        after = 'nvim-treesitter',
     })
+    use('ThePrimeagen/refactoring.nvim')
     use({
         'xeluxee/competitest.nvim',
         requires = 'MunifTanjim/nui.nvim',

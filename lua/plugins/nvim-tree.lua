@@ -22,4 +22,8 @@ require('nvim-tree').setup({
             resize_window = true,
         },
     },
+    filters = {
+        dotfiles = false,
+        custom = { '^.git$' }
+    },
 })

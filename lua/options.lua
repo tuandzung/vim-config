@@ -34,6 +34,7 @@ if fn.has('multi_byte') == 1 then
 else
     opt.listchars = [[tab:> ,extends:>,precedes:<,nbsp:.,trail:~]]
 end
+opt.listchars:append('space:⋅')
 
 opt.list = true
 
