@@ -31,3 +31,7 @@ global.go_auto_type_info = 1
 global.NERDSpaceDelims = 1
 
 global.glow_border = 'rounded'
+
+-- disable netrw at the very start of your init.lua (strongly advised)
+global.loaded = 1
+global.loaded_netrwPlugin = 1
