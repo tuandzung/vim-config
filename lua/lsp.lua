@@ -4,11 +4,11 @@ lsp_installer.setup({
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
     ui = {
         icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }
+            server_installed = '✓',
+            server_pending = '➜',
+            server_uninstalled = '✗',
+        },
+    },
 })
 
 local nvim_lsp = require('lspconfig')
@@ -48,6 +48,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+    buf_set_keymap('v', '<space>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
 
     if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
@@ -57,26 +58,31 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
-    'pyright',
-    'rust_analyzer',
-    'tsserver',
-    'ccls',
-    'bashls',
-    'eslint',
-    'gopls',
-    'sumneko_lua',
-    'vimls',
-    'ltex',
+    pyright = { 'python' },
+    rust_analyzer = { 'rust' },
+    clangd = { 'c', 'cpp' },
+    dockerls = { 'dockerfile' },
+    gopls = { 'go' },
+    sumneko_lua = { 'lua' },
+    tailwindcss = { 'css', 'html', 'less', 'sass', 'scss' },
+    emmet_ls = { 'html' },
+    jsonls = { 'json' },
+    yamlls = { 'yaml' },
+    grammarly = { 'markdown', 'gitcommit' },
+    ltex = { 'markdown', 'gitcommit' },
+    bashls = { 'sh', 'bats' },
+    awk_ls = { 'awk' },
 }
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup({
+for server_name, filetypes in pairs(servers) do
+    nvim_lsp[server_name].setup({
         on_attach = on_attach,
         capabilities = capabilities,
         flags = {
             debounce_text_changes = 150,
         },
+        filetypes = vim.deepcopy(filetypes),
         settings = {
             python = {
                 analysis = {
