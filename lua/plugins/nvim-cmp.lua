@@ -7,14 +7,14 @@ cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
-            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            vim.fn['UltiSnips#Anon'](args.body)
         end,
     },
     window = {
-        completion = { border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, scrollbar = "║" },
+        completion = { border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }, scrollbar = '║' },
         documentation = {
-            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-            scrollbar = "║",
+            border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+            scrollbar = '║',
         },
     },
     formatting = {
@@ -41,9 +41,9 @@ cmp.setup({
                 -- end
 
                 if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
-                    and string.sub(vim_item.abbr, -1, -1) == "~"
+                    and string.sub(vim_item.abbr, -1, -1) == '~'
                 then
-                    word = word .. "~"
+                    word = word .. '~'
                 end
                 vim_item.abbr = word
 
@@ -61,9 +61,9 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'luasnip' }, -- For luasnip users.
+        { name = 'ultisnips' }, -- For luasnip users.
     }, {
-        { name = "buffer", keyword_length = 5, max_item_count = 5 },
-        { name = "orgmode" }
+        { name = 'buffer', keyword_length = 5, max_item_count = 5 },
+        { name = 'orgmode' },
     }),
 })

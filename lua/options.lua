@@ -67,3 +67,4 @@ opt.pumblend = 1
 opt.clipboard = 'unnamedplus'
 opt.shortmess:append('c')
 opt.signcolumn = 'yes'
+opt.completeopt = { 'menu', 'menuone', 'noselect' }
