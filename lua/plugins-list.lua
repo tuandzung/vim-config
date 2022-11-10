@@ -128,15 +128,15 @@ require('packer').startup(function(use)
     use('machakann/vim-highlightedyank')
     use({
         'hrsh7th/nvim-cmp',
-        branch = '99ef854322',
+        branch = 'main',
         requires = {
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-cmdline',
             'hrsh7th/nvim-cmp',
-            'SirVer/ultisnips',
-            'quangnguyen30192/cmp-nvim-ultisnips',
+            'L3MON4D3/LuaSnip',
+            'saadparwaiz1/cmp_luasnip',
         },
     })
     use('sheerun/vim-polyglot')
