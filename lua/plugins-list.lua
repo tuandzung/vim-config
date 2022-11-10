@@ -139,6 +139,12 @@ require('packer').startup(function(use)
             'saadparwaiz1/cmp_luasnip',
         },
     })
+    use({
+        'danymat/neogen',
+        requires = 'nvim-treesitter/nvim-treesitter',
+        -- Uncomment next line if you want to follow only stable versions
+        -- tag = "*"
+    })
     use('sheerun/vim-polyglot')
     use('chrisbra/csv.vim')
     use('ellisonleao/glow.nvim')
@@ -178,4 +184,6 @@ require('packer').startup(function(use)
         'xeluxee/competitest.nvim',
         requires = 'MunifTanjim/nui.nvim',
     })
+    use('rmagatti/goto-preview')
+    use('windwp/nvim-spectre')
 end)
