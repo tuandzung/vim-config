@@ -8,14 +8,10 @@ vim.api.nvim_set_keymap('n', '<Leader>f', ':NvimTreeFindFile<CR>', { noremap = t
 -- following options are the default
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
 require('nvim-tree').setup({
-    create_in_closed_folder = true,
     hijack_cursor = true,
-    open_on_setup = true,
-    open_on_setup_file = true,
     sync_root_with_cwd = true,
     view = {
         adaptive_size = false,
-        hide_root_folder = true,
     },
     renderer = {
         full_name = true,
