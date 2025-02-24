@@ -1,4 +1,5 @@
 require('globals')
+require('core')
 require('options')
 require('colorscheme')
 require('icons')
