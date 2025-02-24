@@ -11,7 +11,7 @@ autocmd TermOpen * setlocal nonumber norelativenumber | startinsert
 " ++once supported in Nvim 0.4+ and Vim 8.1+
 " autocmd CmdlineEnter * ++once call wilder#main#start()
 
-autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
+autocmd BufWritePre * lua vim.lsp.buf.format()
 
 augroup lsp
   au!
