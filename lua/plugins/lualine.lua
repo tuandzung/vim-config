@@ -35,7 +35,7 @@ local diff = {
 
 local mode = {
     'mode',
-    icon = '邏',
+    icon = '',
 }
 
 local filetype = {
