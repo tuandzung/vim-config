@@ -26,7 +26,6 @@ vim.g.maplocalleader = "\\"
 
 require('lazy').setup({
     'nvim-lua/plenary.nvim',
-    'nathom/filetype.nvim',
     'lewis6991/impatient.nvim',
     'dstein64/vim-startuptime',
     'gelguy/wilder.nvim',
@@ -169,6 +168,6 @@ require('lazy').setup({
         'Exafunction/codeium.vim',
         name = 'codeium',
         build = ':Codeium Auth',
-        dependencies = {'nvim-lua/plenary.nvim'}
+        dependencies = { 'nvim-lua/plenary.nvim' }
     },
 })
