@@ -1,7 +1,7 @@
 local lsp_installer = require('nvim-lsp-installer')
 
 lsp_installer.setup({
-    automatic_installation = false, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
     ui = {
         icons = {
             server_installed = '✓',
@@ -58,6 +58,7 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
+    ruff = { 'python' },
     pyright = { 'python' },
     rust_analyzer = { 'rust' },
     clangd = { 'c', 'cpp' },
@@ -84,12 +85,11 @@ for server_name, filetypes in pairs(servers) do
         },
         filetypes = vim.deepcopy(filetypes),
         settings = {
+            pyright = {
+                disableOrganizeImports = true,
+            },
             python = {
-                analysis = {
-                    autoSearchPaths = false,
-                    useLibraryCodeForTypes = false,
-                    diagnosticMode = 'openFilesOnly',
-                },
+                ignore = { '*' },
             },
         },
     })
@@ -105,3 +105,18 @@ local signs = {
 for _, sign in ipairs(signs) do
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = '' })
 end
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client == nil then
+            return
+        end
+        if client.name == 'ruff' then
+            -- Disable hover in favor of Pyright
+            client.server_capabilities.hoverProvider = false
+        end
+    end,
+    desc = 'LSP: Disable hover capability from Ruff',
+})
