@@ -16,6 +16,8 @@ return {
               '.venv',
               'venv',
               '__pycache__',
+              '.pytest_cache',
+              '.ruff_cache',
             },
           },
           explorer = {
@@ -31,6 +33,8 @@ return {
               '.venv',
               'venv',
               '__pycache__',
+              '.pytest_cache',
+              '.ruff_cache',
             },
             win = {
               list = {
