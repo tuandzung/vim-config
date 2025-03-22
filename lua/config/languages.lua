@@ -115,6 +115,42 @@ return {
       { 'sqlfluff', opts = { args = { 'format', '--dialect=ansi', '-' } } },
     },
   },
+  typescript = {
+    filetypes = {
+      'javascript',
+      'typescript',
+      'javascriptreact',
+      'typescriptreact',
+      'javascript.jsx',
+      'typescript.tsx',
+    },
+    parsers = { 'javascript' },
+    lsp_servers = { 'vtsls', 'harper_ls' },
+    linters = { 'biome' },
+    formatters = { 'biome' },
+    dap = { 'js', 'firefox' },
+    test = {
+      'neotest-jest',
+      'neotest-vitest',
+      'neotest-playwright',
+      'vim-test',
+    },
+    autopairs = function(filetypes, rule)
+      return {
+        -- Add parentheses in arrow function
+        rule('=>', ' {  }', filetypes)
+          :replace_endpair(function(opts)
+            local prev_3char = opts.line:sub(opts.col - 3, opts.col - 2)
+            local next_char = opts.line:sub(opts.col, opts.col)
+            if prev_3char:match('%)$') then
+              return '<BS><BS> => {  }' .. next_char
+            end
+            return ' {  }'
+          end)
+          :set_end_pair_length(2),
+      }
+    end,
+  },
   -- Tools & Markup
   cmake = {
     filetypes = { 'cmake' },
@@ -144,7 +180,7 @@ return {
   },
   gitrebase = {
     filetypes = { 'gitrebase' },
-    parsers = { 'girebase' },
+    parsers = { 'git_rebase' },
     null_ls = {
       {
         'gitrebase',
@@ -154,6 +190,22 @@ return {
       },
     },
   },
+  gotmpl = {
+    filetypes = { 'gotmpl' },
+    parsers = { 'gotmpl' },
+    formatters = {
+      { 'injected', command = 'lua', mason = { enabled = false } },
+    },
+    autopairs = function(filetypes, rule)
+      return {
+        -- Add parentheses in function
+        rule('{{', '  }', filetypes):set_end_pair_length(2),
+        rule('{-', '{-  }', filetypes)
+          :replace_endpair(function(_) return '<BS><BS>{{-  }' end)
+          :set_end_pair_length(2),
+      }
+    end,
+  },
   helm = { -- See `gotmpl`
     filetypes = { 'gotmpl' },
     parsers = { 'helm' },
@@ -162,6 +214,15 @@ return {
     formatters = {
       { 'injected', command = 'lua', mason = { enabled = false } },
     },
+    autopairs = function(filetypes, rule)
+      return {
+        -- Add parentheses in function
+        rule('{{', '  }', filetypes):set_end_pair_length(2),
+        rule('{-', '{-  }', filetypes)
+          :replace_endpair(function(_) return '<BS><BS>{{-  }' end)
+          :set_end_pair_length(2),
+      }
+    end,
   },
   hyprlang = {
     filetypes = { 'hyprlang' },
