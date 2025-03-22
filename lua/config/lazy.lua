@@ -42,6 +42,7 @@ require('lazy').setup({
     { import = 'plugins.utils' },
     { import = 'plugins.editor' },
     { import = 'plugins.languages' },
+    { import = 'plugins.treesitter' },
   },
   defaults = {
     lazy = true, -- Lazy loading all plugins

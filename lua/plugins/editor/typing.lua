@@ -9,6 +9,23 @@ return {
       enable_abbr = true, -- Enable abbreviation
       fast_wrap = {}, -- Use default FastWrap
     },
+    config = function(_, plugin_opts)
+      local autopairs = require('nvim-autopairs')
+      autopairs.setup(plugin_opts)
+
+      local rule = require('nvim-autopairs.rule')
+      local cond = require('nvim-autopairs.conds')
+      local ts_cond = require('nvim-autopairs.ts-conds')
+
+      -- Auto pair rules per filetype
+      for _, language in pairs(require('config.languages')) do
+        if language.autopairs then
+          autopairs.add_rules(
+            language.autopairs(language.filetypes, rule, cond, ts_cond)
+          )
+        end
+      end
+    end,
   },
   {
     -- Accept auto brackets from autopairs for completion
