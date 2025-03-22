@@ -331,7 +331,7 @@ return {
       'gh_actions_ls',
       'docker_compose_language_service',
     },
-    linters = { 'yamllint', 'trivy', 'actionlint' },
+    linters = { 'yamllint', 'trivy' },
     formatters = {
       'yamlfmt',
       { 'injected', command = 'lua', mason = { enabled = false } },
