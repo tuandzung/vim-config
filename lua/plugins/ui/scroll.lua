@@ -2,7 +2,13 @@ return {
   {
     'folke/snacks.nvim',
     opts = {
-      scroll = { enabled = false },
+      scroll = {
+        animate = {
+          duration = { total = 100 },
+          easing = 'inOutExpo',
+          fps = vim.g.fps,
+        },
+      },
     },
   },
 }

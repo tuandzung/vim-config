@@ -29,6 +29,9 @@ g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_node_provider = 0
 
+g.os = vim.uv.os_uname().sysname
+g.fps = vim.g.os == 'Darwin' and 120 or 144
+
 require('config.filetypes')
 
 -- Setup abbreviations
