@@ -1,3 +1,4 @@
+local language = require('config.languages').python
 return {
   {
     -- LSP config
@@ -6,6 +7,7 @@ return {
       servers = {
         pyright = {},
         ruff = {},
+        harper_ls = {},
       },
     },
   },
@@ -14,6 +16,7 @@ return {
     'nvim-neotest/neotest',
     dependencies = {
       'nvim-neotest/neotest-python',
+      ft = language.filetypes,
     },
     opts = {
       adapters = {

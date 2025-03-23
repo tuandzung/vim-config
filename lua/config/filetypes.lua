@@ -20,6 +20,9 @@ vim.filetype.add({
     ['openapi.*%.ya?ml'] = 'yaml.openapi',
     ['openapi.*%.json'] = 'json.openapi',
 
+    ['.*/specs/.*%.ya?ml'] = 'yaml.openapi',
+    ['.*/specs/.*%.json'] = 'json.openapi',
+
     ['.*%.gitlab%-ci%.ya?ml'] = 'yaml.gl-ci',
     ['.*%.github/workflows/.*.ya?ml'] = 'yaml.gh-action',
 
