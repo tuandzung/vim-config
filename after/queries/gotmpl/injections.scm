@@ -21,7 +21,7 @@
   (#set! injection.combined))
 
 ((text) @injection.content
-  (#is-toml-file?)
+  (#is-ini-file?)
   (#set! injection.language "ini")
   (#set! injection.combined))
 
