@@ -1,3 +1,5 @@
+local bundle_languages = {}
+local enabled_languages = {}
 return {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -38,7 +40,7 @@ return {
                 filetypes = language.filetypes,
                 install_info = parser.install_info,
                 filetype = '',
-                maintainers = { 'tuandzung' },
+                maintainers = { 'zun1903@gmail.com' },
               }
             end
             for _, ft in pairs(language.filetypes) do
@@ -47,27 +49,31 @@ return {
           end
 
           -- install parser of language in bundle languages
-          table.insert(opts.ensure_installed, { parser_name })
+          if vim.list_contains(bundle_languages, name) then
+            table.insert(opts.ensure_installed, { parser_name })
+          end
           -- lazy install parser of language not in bundle languages
-          vim.api.nvim_create_autocmd({ 'FileType' }, {
-            pattern = language.filetypes,
-            group = vim.api.nvim_create_augroup(
-              'ts_parser_' .. parser_name,
-              {}
-            ),
-            callback = function()
-              if
-                next(
-                  vim.api.nvim_get_runtime_file(
-                    'parser/' .. parser_name .. '.so',
-                    true
-                  )
-                ) == nil
-              then
-                vim.api.nvim_command('TSInstall ' .. parser_name)
-              end
-            end,
-          })
+          if vim.list_contains(enabled_languages, name) then
+            vim.api.nvim_create_autocmd({ 'FileType' }, {
+              pattern = language.filetypes,
+              group = vim.api.nvim_create_augroup(
+                'ts_parser_' .. parser_name,
+                {}
+              ),
+              callback = function()
+                if
+                  next(
+                    vim.api.nvim_get_runtime_file(
+                      'parser/' .. parser_name .. '.so',
+                      true
+                    )
+                  ) == nil
+                then
+                  vim.api.nvim_command('TSInstall ' .. parser_name)
+                end
+              end,
+            })
+          end
         end
       end
 
