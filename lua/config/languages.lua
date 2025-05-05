@@ -241,7 +241,7 @@ return {
     lsp_servers = { 'autotools_ls' },
   },
   markdown = {
-    filetypes = { 'markdown', 'markdown.mdx' },
+    filetypes = { 'markdown', 'markdown.mdx', 'codecompanion' },
     parsers = { 'markdown', 'markdown_inline' },
     lsp_servers = { 'marksman', 'vale_ls', 'harper_ls' },
     linters = { 'markdownlint-cli2', 'vale' },

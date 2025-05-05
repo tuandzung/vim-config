@@ -13,18 +13,25 @@ local function select_model()
 end
 
 return {
-  -- Codeium
-  { import = 'lazyvim.plugins.extras.ai.codeium' },
+  -- Supermaven
+  { import = 'lazyvim.plugins.extras.ai.supermaven' },
   {
-    -- AI Engine for coding
-    'Exafunction/codeium.nvim',
-    build = function()
-      require('lazy').load({ plugins = { 'codeium.nvim' }, wait = true })
-      vim.cmd(':Codeium Auth')
-    end,
+    'supermaven-inc/supermaven-nvim',
+    event = 'InsertEnter',
+    cmd = {
+      'SupermavenUseFree',
+      'SupermavenUsePro',
+    },
+    opts = {
+      keymaps = {
+        accept_suggestion = nil, -- handled by nvim-cmp / blink.cmp
+      },
+      disable_inline_completion = vim.g.ai_cmp,
+      ignore_filetypes = { 'bigfile', 'snacks_input', 'snacks_notif' },
+    },
     init = function()
       _G.completion_sources = vim.tbl_extend('force', _G.completion_sources, {
-        codeium = '「AI」',
+        supermaven = '「AI」',
       })
     end,
   },
@@ -56,6 +63,24 @@ return {
         mode = 'n', -- Specify the mode
       },
       -- You could potentially add more keys here that should load the plugin
+      {
+        '<C-a>',
+        '<cmd>CodeCompanionActions<CR>',
+        desc = 'Open the action palette',
+        mode = { 'n', 'v' },
+      },
+      {
+        '<Leader>a',
+        '<cmd>CodeCompanionChat Toggle<CR>',
+        desc = 'Toggle a chat buffer',
+        mode = { 'n', 'v' },
+      },
+      {
+        '<LocalLeader>a',
+        '<cmd>CodeCompanionChat Add<CR>',
+        desc = 'Add code to a chat buffer',
+        mode = { 'v' },
+      },
     },
     init = function()
       _G.completion_sources = vim.tbl_extend('force', _G.completion_sources, {
@@ -67,7 +92,9 @@ return {
       require('codecompanion').setup({
         extensions = {
           mcphub = {
-            callback = 'mcphub.extensions.codecompanion',
+            callback = function()
+              return require('mcphub.extensions.codecompanion')
+            end,
             opts = {
               make_vars = true,
               make_slash_commands = true,
@@ -107,6 +134,12 @@ return {
             adapter = vim.env.VIM_COMPANION_ADAPTER
               or config.chat_adapter
               or 'ollama',
+            tools = {
+              opts = {
+                auto_submit_success = false,
+                auto_submit_errors = false,
+              },
+            },
           },
           inline = {
             adapter = vim.env.VIM_COMPANION_ADAPTER

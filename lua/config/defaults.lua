@@ -96,7 +96,7 @@ return {
       WhileStatement = '󰑖 ',
 
       cmdline = ' ',
-      codeium = ' ',
+      supermaven = ' ',
       dictionary = ' ',
       calc = ' ',
       sql = ' ',

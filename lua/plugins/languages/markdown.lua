@@ -38,6 +38,7 @@ return {
     'MeanderingProgrammer/render-markdown.nvim',
     ft = language.filetypes,
     opts = {
+      render_modes = true, -- Render in ALL modes
       code = {
         sign = false,
         width = 'block',
