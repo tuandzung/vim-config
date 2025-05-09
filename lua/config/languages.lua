@@ -235,6 +235,11 @@ return {
     lsp_servers = { 'jsonls' },
     linters = { 'jsonlint', 'trivy' },
   },
+  justfile = {
+    filetypes = { 'just' },
+    parsers = { 'just' },
+    lsp_servers = { 'just_lsp' },
+  },
   make = {
     filetypes = { 'config', 'automake', 'make' },
     parsers = { 'make' },
