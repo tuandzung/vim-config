@@ -35,6 +35,20 @@ return {
       end
     end,
   },
+  { -- Assuming you init/setup snacks.nvim in a different file
+    'folke/snacks.nvim',
+    opts = function()
+      vim.g.autoformat = true -- Sets up the default value to be true
+      Snacks.toggle
+        .new({
+          id = 'Format on Save',
+          name = 'Format on Save',
+          get = function() return vim.g.autoformat end,
+          set = function(_) vim.g.autoformat = not vim.g.autoformat end,
+        })
+        :map('<leader>uf')
+    end,
+  },
   {
     -- Auto install formatters
     'williamboman/mason.nvim',
