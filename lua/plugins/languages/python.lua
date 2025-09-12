@@ -10,6 +10,7 @@ return {
         harper_ls = {},
       },
     },
+    init = function() vim.lsp.enable('ty') end,
   },
   {
     -- Test adapter

@@ -86,8 +86,11 @@ return {
   python = {
     filetypes = { 'python' },
     parsers = { 'python' },
-    lsp_servers = { 'pyright', 'ruff', 'harper_ls' },
-    linters = { 'ruff' },
+    lsp_servers = { 'pyright', 'ruff', 'ty' },
+    linters = {
+      'ruff',
+      { 'ty', command = 'uvx ty check' },
+    },
     formatters = {
       { 'ruff_fix', command = 'ruff' },
       { 'ruff_format', command = 'ruff' },
@@ -107,6 +110,10 @@ return {
     linters = { 'stylelint' },
     formatters = { 'prettier' },
   },
+  scala = {
+    filetypes = { 'scala', 'sbt' },
+    parsers = { 'scala' },
+  },
   sql = {
     filetypes = { 'sql', 'mysql', 'plsql' },
     parsers = { 'sql' },
@@ -125,7 +132,7 @@ return {
       'typescript.tsx',
     },
     parsers = { 'javascript' },
-    lsp_servers = { 'vtsls', 'harper_ls' },
+    lsp_servers = { 'vtsls', 'harper_ls', 'eslint-lsp' },
     linters = { 'biome' },
     formatters = { 'biome' },
     dap = { 'js', 'firefox' },
