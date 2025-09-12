@@ -164,5 +164,26 @@ return {
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
       },
     },
+    init = function()
+      local ok, mod =
+        pcall(require, 'catppuccin.groups.integrations.bufferline')
+      if ok and mod and not mod.get and type(mod.get_theme) == 'function' then
+        mod.get = mod.get_theme
+      end
+    end,
+  },
+  {
+    'akinsho/bufferline.nvim',
+    optional = true,
+    opts = function(_, opts)
+      if (vim.g.colors_name or ''):find('catppuccin') then
+        local ok, mod =
+          pcall(require, 'catppuccin.groups.integrations.bufferline')
+        if ok then
+          local get = mod.get_theme or mod.get
+          if type(get) == 'function' then opts.highlights = get({}) end
+        end
+      end
+    end,
   },
 }
