@@ -89,7 +89,7 @@ return {
     lsp_servers = { 'pyright', 'ruff', 'ty' },
     linters = {
       'ruff',
-      { 'ty', command = 'uvx ty check' },
+      { 'ty', command = 'ty check' },
     },
     formatters = {
       { 'ruff_fix', command = 'ruff' },
