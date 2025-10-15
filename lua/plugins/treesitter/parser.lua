@@ -1,9 +1,26 @@
 local bundle_languages = {}
-local enabled_languages = {}
+local enabled_languages = {
+  'markdown',
+  'terraform',
+  'go',
+  'gotmpl',
+  'bash',
+  'dockerfile',
+  'yaml',
+  'json',
+  'python',
+  'd2',
+  'dbml',
+  'scala',
+  'sql',
+  'lua',
+  'hyprlang',
+}
+
+-- Credit: dynamotn
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    -- I don't want to use default LazyVim parsers
     opts = function(_, opts)
       opts.ensure_installed = {
         'diff', -- for diff file
@@ -18,34 +35,41 @@ return {
       }
     end,
     config = function(_, opts)
+      local treesitter = require('nvim-treesitter')
+      -- Setup from opts
+      treesitter.setup(opts)
+      LazyVim.treesitter.get_installed(true) -- initialize the installed langs
+
       -- Setup treesitter parser to work with defined filetypes
-      local parser_config =
-        require('nvim-treesitter.parsers').get_parser_configs()
+      local parsers = require('nvim-treesitter.parsers')
       for name, language in pairs(require('config.languages')) do
         for _, parser in ipairs(language.parsers or {}) do
-          -- Parse config
           local parser_name = ''
           if type(parser) == 'string' then
             parser_name = parser
-            for _, ft in pairs(language.filetypes) do
-              vim.treesitter.language.register(parser, ft)
-            end
           elseif type(parser) == 'table' then
             parser_name = parser[1]
-            if parser_config[parser_name] then
-              parser_config[parser_name]['filetypes'] = language.filetypes
-              parser_config[parser_name]['install_info'] = parser.install_info
+            if parsers[parser_name] then
+              vim.api.nvim_create_autocmd('User', {
+                pattern = 'TSUpdate',
+                callback = function()
+                  parsers[parser_name].install_info = parser.install_info
+                end,
+              })
             else
-              parser_config[parser_name] = {
-                filetypes = language.filetypes,
-                install_info = parser.install_info,
-                filetype = '',
-                maintainers = { 'zun1903@gmail.com' },
-              }
+              vim.api.nvim_create_autocmd('User', {
+                pattern = 'TSUpdate',
+                callback = function()
+                  require('nvim-treesitter.parsers')[parser_name] = {
+                    install_info = parser.install_info,
+                    tier = 0,
+                  }
+                end,
+              })
             end
-            for _, ft in pairs(language.filetypes) do
-              vim.treesitter.language.register(parser_name, ft)
-            end
+          end
+          for _, ft in pairs(language.filetypes) do
+            vim.treesitter.language.register(parser_name, ft)
           end
 
           -- install parser of language in bundle languages
@@ -60,16 +84,15 @@ return {
                 'ts_parser_' .. parser_name,
                 {}
               ),
-              callback = function()
-                if
-                  next(
-                    vim.api.nvim_get_runtime_file(
-                      'parser/' .. parser_name .. '.so',
-                      true
-                    )
-                  ) == nil
-                then
-                  vim.api.nvim_command('TSInstall ' .. parser_name)
+              callback = function(ev)
+                if not LazyVim.treesitter.get_installed()[parser_name] then
+                  treesitter
+                    .install({ parser_name }, { summary = true })
+                    :await(function()
+                      LazyVim.treesitter.get_installed(true) -- refresh the installed langs
+                      vim.cmd(string.format('%dbuffer', ev.buf))
+                      vim.cmd('e!')
+                    end)
                 end
               end,
             })
@@ -77,11 +100,58 @@ return {
         end
       end
 
-      -- Setup from opts
-      if type(opts.ensure_installed) == 'table' then
-        opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
+      -- install missing parsers
+      opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
+      local install = vim.tbl_filter(
+        function(parser_name) return not LazyVim.treesitter.have(parser_name) end,
+        opts.ensure_installed or {}
+      )
+      if #install > 0 then
+        LazyVim.treesitter.ensure_treesitter_cli(function()
+          treesitter.install(install, { summary = true }):await(function()
+            LazyVim.treesitter.get_installed(true) -- refresh the installed langs
+          end)
+        end)
       end
-      require('nvim-treesitter.configs').setup(opts)
+
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup(
+          'lazyvim_treesitter',
+          { clear = true }
+        ),
+        callback = function(ev)
+          if not LazyVim.treesitter.have(ev.match) then return end
+
+          -- highlighting
+          if vim.tbl_get(opts, 'highlight', 'enable') ~= false then
+            pcall(vim.treesitter.start)
+          end
+
+          -- indents
+          if
+            vim.tbl_get(opts, 'indent', 'enable') ~= false
+            and LazyVim.treesitter.have(ev.match, 'indents')
+          then
+            LazyVim.set_default(
+              'indentexpr',
+              'v:lua.LazyVim.treesitter.indentexpr()'
+            )
+          end
+
+          -- folds
+          if
+            vim.tbl_get(opts, 'folds', 'enable') ~= false
+            and LazyVim.treesitter.have(ev.match, 'folds')
+          then
+            if LazyVim.set_default('foldmethod', 'expr') then
+              LazyVim.set_default(
+                'foldexpr',
+                'v:lua.LazyVim.treesitter.foldexpr()'
+              )
+            end
+          end
+        end,
+      })
 
       -- Setup predicates
       for predicate, regex in pairs(opts.custom_predicates) do
