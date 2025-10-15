@@ -12,7 +12,7 @@ return {
   },
   {
     -- Filetype icons
-    'echasnovski/mini.icons',
+    'nvim-mini/mini.icons',
     opts = {
       filetype = {
         helm = { glyph = '', hl = 'MiniIconsGrey' },
