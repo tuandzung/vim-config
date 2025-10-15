@@ -36,5 +36,9 @@ vim.filetype.add({
     ['helmfile.*%.ya?ml'] = 'helm',
 
     ['.*/hypr/.*%.conf'] = 'hyprlang',
+
+    ['.*/waybar/config'] = 'jsonc',
+    ['.*/kitty/.*%.conf'] = 'kitty',
+    ['%.env%.[%w_.-]+'] = 'sh',
   },
 })

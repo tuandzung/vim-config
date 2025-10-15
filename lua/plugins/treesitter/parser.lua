@@ -1,5 +1,6 @@
 local bundle_languages = {}
 local enabled_languages = {
+  'kitty',
   'markdown',
   'terraform',
   'go',
