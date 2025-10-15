@@ -17,6 +17,9 @@ vim.filetype.add({
     ['.*%.hcl'] = 'terragrunt',
     ['.*terraform/.*%.hcl'] = 'terragrunt',
 
+    ['.*%.dbml'] = 'dbml',
+    ['.*%.d2'] = 'd2',
+
     ['openapi.*%.ya?ml'] = 'yaml.openapi',
     ['openapi.*%.json'] = 'json.openapi',
 

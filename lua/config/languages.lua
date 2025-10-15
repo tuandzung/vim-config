@@ -170,6 +170,28 @@ return {
     filetypes = { 'csv' },
     parsers = { 'csv' },
   },
+  d2 = {
+    filetypes = { 'd2' },
+    parsers = {
+      {
+        'd2',
+        install_info = {
+          url = 'https://github.com/madmaxieee/tree-sitter-d2',
+        },
+      },
+    },
+  },
+  dbml = {
+    filetypes = { 'dbml' },
+    parsers = {
+      {
+        'dbml',
+        install_info = {
+          url = 'https://github.com/dynamotn/tree-sitter-dbml',
+        },
+      },
+    },
+  },
   dockerfile = {
     filetypes = { 'dockerfile' },
     parsers = { 'dockerfile' },
