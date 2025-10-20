@@ -180,6 +180,7 @@ return {
         },
       },
     },
+    formatters = { 'd2' },
   },
   dbml = {
     filetypes = { 'dbml' },
