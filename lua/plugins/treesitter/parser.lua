@@ -16,6 +16,7 @@ local enabled_languages = {
   'sql',
   'lua',
   'hyprlang',
+  'helm',
 }
 
 -- Credit: dynamotn
