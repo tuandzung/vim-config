@@ -1,5 +1,110 @@
 return {
-  -- Programming languages
+  -- For all filetypes
+  ['*'] = {
+    filetypes = { '*' },
+    parsers = {},
+    formatters = {
+      { 'trim_whitespace', command = 'lua', mason = { enabled = false } },
+      { 'trim_newlines', command = 'lua', mason = { enabled = false } },
+      {
+        'condense_blank_lines',
+        command = 'sed',
+        mason = { enabled = false },
+      },
+    },
+    linters = { 'typos' },
+    autopairs = function(_, rule, cond, _)
+      local languages_list = require('config.languages')
+      local equal_rule_ignored_filetypes = function()
+        local result = vim.list_extend({}, languages_list.bash.filetypes)
+        result = vim.list_extend(result, languages_list.yaml.filetypes)
+        result = vim.list_extend(result, languages_list.dockerfile.filetypes)
+        result = vim.list_extend(result, { 'gitattributes' })
+        for i, filetype in ipairs(result) do
+          result[i] = '-' .. filetype
+        end
+        return result
+      end
+
+      return {
+        -- Add spaces between parentheses
+        rule(' ', ' ')
+          :with_pair(cond.done())
+          :replace_endpair(function(opts)
+            local pair = opts.line:sub(opts.col - 1, opts.col)
+            if vim.tbl_contains({ '()', '{}', '[]' }, pair) then
+              return ' ' -- it return space here
+            end
+            return '' -- return empty
+          end)
+          :with_move(cond.none())
+          :with_cr(cond.none())
+          :with_del(function(opts)
+            local col = vim.api.nvim_win_get_cursor(0)[2]
+            local context = opts.line:sub(col - 1, col + 2)
+            return vim.tbl_contains({ '(  )', '{  }', '[  ]' }, context)
+          end),
+        rule('', ' )')
+          :with_pair(cond.none())
+          :with_move(function(opts) return opts.char == ')' end)
+          :with_cr(cond.none())
+          :with_del(cond.none())
+          :use_key(')'),
+        rule('', ' }')
+          :with_pair(cond.none())
+          :with_move(function(opts) return opts.char == '}' end)
+          :with_cr(cond.none())
+          :with_del(cond.none())
+          :use_key('}'),
+        rule('', ' ]')
+          :with_pair(cond.none())
+          :with_move(function(opts) return opts.char == ']' end)
+          :with_cr(cond.none())
+          :with_del(cond.none())
+          :use_key(']'),
+
+        -- Add space after comma when have following text after comma
+        rule(',', ' ')
+          :replace_endpair(function(opts)
+            local next_char = opts.line:sub(opts.col, opts.col)
+            if next_char:match('%w$') then return ' ' end
+            return ''
+          end)
+          :set_end_pair_length(0),
+
+        -- Add space on equal sign
+        rule('=', ' ', equal_rule_ignored_filetypes())
+          :with_pair(cond.not_inside_quote())
+          :with_pair(function(opts)
+            local last_char = opts.line:sub(opts.col - 1, opts.col - 1)
+            if last_char:match('[%w%=%s]') then return true end
+            return false
+          end)
+          :replace_endpair(function(opts)
+            local prev_2char = opts.line:sub(opts.col - 2, opts.col - 1)
+            local next_char = opts.line:sub(opts.col, opts.col)
+            next_char = next_char == ' ' and '' or ' '
+            if prev_2char:match('%w$') then return '<BS> =' .. next_char end
+            if prev_2char:match('%=$') then return next_char end
+            if prev_2char:match('=') then return '<BS><BS>=' .. next_char end
+            return ''
+          end)
+          :set_end_pair_length(0)
+          :with_move(cond.none())
+          :with_del(cond.none()),
+      }
+    end,
+  },
+  -- For only non-configured filetypes, effectively with
+  -- `conform` and `nvim-lint` plugins
+  ---@diagnostic disable-next-line: missing-fields
+  ['_'] = {
+    filetypes = { '_' },
+    linters = {
+      { 'compiler', command = 'lua', mason = { enabled = false } },
+    },
+  },
+  -- Programming language
   bash = {
     filetypes = {
       'sh',
