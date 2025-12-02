@@ -1,15 +1,6 @@
 _G.completion_sources = {}
 return {
   {
-    'saghen/blink.compat',
-    -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
-    version = '*',
-    -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
-    lazy = true,
-    -- make sure to set opts so that lazy.nvim calls blink.compat's setup
-    opts = {},
-  },
-  {
     -- Fuzzy path source for cmdline
     'tzachar/cmp-fuzzy-path',
     dependencies = {
@@ -24,6 +15,8 @@ return {
   'mikavilpas/blink-ripgrep.nvim', -- Ripgrep
   'Kaiser-Yang/blink-cmp-dictionary', -- Dictionary source
   'hrsh7th/cmp-calc', -- Math calculation
+  'moyiz/blink-emoji.nvim', -- Emoji source
+  'MahanRahmati/blink-nerdfont.nvim', -- Nerdfont source
   {
     -- Dynamic source
     'uga-rosa/cmp-dynamic',
@@ -55,19 +48,35 @@ return {
   {
     -- Engine for completion
     'saghen/blink.cmp',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
+      'saghen/blink.compat',
       'onsails/lspkind.nvim', -- pictograms
       'cmp-fuzzy-path',
       'blink-cmp-dictionary',
       'cmp-calc',
       'cmp-dynamic',
       'blink-ripgrep.nvim',
+      'blink-emoji.nvim',
+      'blink-nerdfont.nvim',
     },
     opts = {
+      keymap = {
+        preset = 'enter',
+        ['<C-y>'] = { 'select_and_accept' },
+        ['<Tab>'] = {
+          LazyVim.cmp.map({ 'snippet_forward', 'ai_nes', 'ai_accept' }),
+          'fallback',
+        },
+      },
       sources = {
         -- compatible sources from nvim-cmp
         compat = { 'fuzzy_path', 'calc', 'dynamic' },
         providers = {
+          path = {
+            -- Path sources triggered by "/" interfere with CopilotChat commands
+            enabled = function() return vim.bo.filetype ~= 'copilot-chat' end,
+          },
           -- self download dictionaries
           dictionary = {
             module = 'blink-cmp-dictionary',
@@ -85,6 +94,18 @@ return {
             module = 'blink-ripgrep',
             name = 'ripgrep',
           },
+          emoji = {
+            module = 'blink-emoji',
+            name = 'emoji',
+            score_offset = 21,
+            opts = { insert = true },
+          },
+          nerdfont = {
+            module = 'blink-nerdfont',
+            name = 'nerdfont',
+            score_offset = 22,
+            opts = { insert = true },
+          },
           -- text from all buffers
           buffer = {
             opts = {
@@ -95,6 +116,7 @@ return {
                 )
               end,
             },
+            score_offset = 18,
           },
           -- path with start point from root of project, not current folder
           project_path = {
@@ -104,18 +126,21 @@ return {
               get_cwd = function(_) return require('lazyvim.util.root').get() end,
             },
           },
+          lsp = {
+            score_offset = 20,
+          },
+          snippets = {
+            score_offset = 19,
+          },
+          cmdline = {
+            score_offset = 20,
+          },
+          fuzzy_path = {
+            min_keyword_length = 3,
+            score_offset = -20,
+          },
         },
-        default = {
-          'lsp',
-          'path',
-          'project_path',
-          'snippets',
-          'buffer',
-          -- 'ripgrep',
-          'calc',
-          'dynamic',
-          'dictionary',
-        },
+        default = function() return require('util.cmp').setup_default_sources() end,
         per_filetype = {},
       },
       -- enable fuzzy for input words with every length
@@ -146,7 +171,13 @@ return {
           },
         },
         -- need to auto show completion menu
-        completion = { menu = { auto_show = true } },
+        completion = {
+          list = { selection = { preselect = false } },
+          menu = {
+            auto_show = function(_) return vim.fn.getcmdtype() == ':' end,
+          },
+          ghost_text = { enabled = true },
+        },
         sources = function()
           local type = vim.fn.getcmdtype()
           -- Search forward and backward
@@ -245,6 +276,8 @@ return {
         calc = '「CALC」',
         dynamic = '「MISC」',
         Cmdline = '「CMD」',
+        emoji = '「EMOJI」',
+        nerdfont = '「NERD」',
       })
     end,
   },
