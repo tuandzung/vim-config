@@ -263,6 +263,12 @@ return {
       }
     end,
   },
+  typst = {
+    filetypes = { 'typst' },
+    parsers = { 'typst' },
+    lsp_servers = { 'tinymist' },
+    formatters = { 'typstyle' },
+  },
   -- Tools & Markup
   cmake = {
     filetypes = { 'cmake' },
@@ -381,10 +387,10 @@ return {
     lsp_servers = { 'autotools_ls' },
   },
   markdown = {
-    filetypes = { 'markdown', 'markdown.mdx', 'codecompanion' },
-    parsers = { 'markdown', 'markdown_inline' },
-    lsp_servers = { 'marksman', 'vale_ls', 'harper_ls' },
-    linters = { 'markdownlint-cli2', 'vale' },
+    filetypes = { 'markdown', 'markdown.mdx' },
+    parsers = { 'markdown' },
+    lsp_servers = { 'marksman', 'harper_ls' },
+    linters = { 'markdownlint-cli2' },
     formatters = {
       { 'injected', command = 'lua', mason = { enabled = false } },
       {

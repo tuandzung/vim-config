@@ -34,38 +34,14 @@ return {
     },
   },
   {
-    -- Highlight for headlines, codeblocks
-    'MeanderingProgrammer/render-markdown.nvim',
-    ft = language.filetypes,
-    opts = {
-      render_modes = true, -- Render in ALL modes
-      code = {
-        sign = false,
-        width = 'block',
-        right_pad = 1,
-      },
-      heading = {
-        sign = false,
-        icons = {},
-      },
-      checkbox = {
-        enabled = false,
-      },
-    },
-    config = function(_, opts)
-      require('render-markdown').setup(opts)
-      Snacks.toggle({
-        name = 'Render Markdown',
-        get = function() return require('render-markdown.state').enabled end,
-        set = function(enabled)
-          local m = require('render-markdown')
-          if enabled then
-            m.enable()
-          else
-            m.disable()
-          end
-        end,
-      }):map('<leader>um')
+    -- Linter config
+    'mfussenegger/nvim-lint',
+    opts = function()
+      local lint = require('lint')
+      lint.linters['markdownlint-cli2'].args = {
+        '--config',
+        '~/.config/markdownlint/config.yaml',
+      }
     end,
   },
 }
