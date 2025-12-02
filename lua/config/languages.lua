@@ -152,15 +152,13 @@ return {
     endwise = true,
   },
   go = {
-    filetypes = { 'go', 'gomod', 'gowork', 'gosum' },
-    parsers = { 'go', 'gomod', 'gowork', 'gosum' },
+    filetypes = { 'go' },
+    parsers = { 'go' },
     lsp_servers = { 'gopls', 'harper_ls' },
-    formatters = { 'goimports', 'gofumpt' },
-    null_ls = {
-      { 'gomodifytags', type = 'code_actions', command = 'gomodifytags' },
-      { 'impl', type = 'code_actions', command = 'impl' },
+    linters = {
+      { 'golangcilint', mason = { package = 'golangci-lint' } },
     },
-    test = { 'neotest-golang' },
+    formatters = { 'goimports', 'gofumpt' },
     linguist = { 'go' },
   },
   html = {
@@ -330,6 +328,18 @@ return {
         mason = { enabled = false },
       },
     },
+  },
+  gomod = {
+    filetypes = { 'gomod' },
+    parsers = { 'gomod' },
+  },
+  gosum = {
+    filetypes = { 'gosum' },
+    parsers = { 'gosum' },
+  },
+  gowork = {
+    filetypes = { 'gowork' },
+    parsers = { 'gowork' },
   },
   gotmpl = {
     filetypes = { 'gotmpl' },
