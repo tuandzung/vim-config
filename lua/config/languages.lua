@@ -439,11 +439,21 @@ return {
     parsers = { 'hcl', 'terraform' },
     lsp_servers = { 'terraformls' },
     linters = { 'tflint', 'trivy' },
+    formatters = {
+      { 'tofu_fmt', command = 'tofu', mason = { enabled = false } },
+    },
   },
   terragrunt = {
     filetypes = { 'terragrunt' },
     parsers = { 'hcl' },
-    lsp_servers = { 'terraformls' },
+    lsp_servers = { 'terragruntls' },
+    formatters = {
+      {
+        'terragrunt_hclfmt',
+        command = 'terragrunt',
+        mason = { enabled = false },
+      },
+    },
   },
   toml = {
     filetypes = { 'toml' },
