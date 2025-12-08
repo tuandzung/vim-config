@@ -91,7 +91,6 @@ return {
             'snippets',
             'buffer',
             'calc',
-            'tmux',
             'emoji',
             'dynamic',
             'dictionary',
