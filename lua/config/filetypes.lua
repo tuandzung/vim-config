@@ -40,5 +40,7 @@ vim.filetype.add({
     ['.*/waybar/config'] = 'jsonc',
     ['.*/kitty/.*%.conf'] = 'kitty',
     ['%.env%.[%w_.-]+'] = 'sh',
+
+    ['.*%Tiltfile'] = 'tiltfile',
   },
 })

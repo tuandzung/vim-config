@@ -465,6 +465,11 @@ return {
       },
     },
   },
+  tilt = {
+    filetypes = { 'tiltfile' },
+    parsers = { 'starlark' },
+    lsp_servers = { 'tilt_ls' },
+  },
   toml = {
     filetypes = { 'toml' },
     parsers = { 'toml' },
