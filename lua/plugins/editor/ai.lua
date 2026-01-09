@@ -66,15 +66,26 @@ return {
             -- Therefore, we must disable it and manually populate the special
             -- tokens required for FIM completion.
             template = {
-              prompt = function(
-                context_before_cursor,
-                context_after_cursor,
-                _
-              )
-                return '<|fim_prefix|>'
-                  .. context_before_cursor
+              prompt = function(pref, suff, _)
+                local prompt_message = ''
+                if has_vc then
+                  for _, file in ipairs(vectorcode_cacher.query_from_cache(0)) do
+                    prompt_message = prompt_message
+                      .. '<|file_sep|>'
+                      .. file.path
+                      .. '\n'
+                      .. file.document
+                  end
+                end
+
+                prompt_message =
+                  vim.fn.strcharpart(prompt_message, 0, RAG_Context_Window_Size)
+
+                return prompt_message
+                  .. '<|fim_prefix|>'
+                  .. pref
                   .. '<|fim_suffix|>'
-                  .. context_after_cursor
+                  .. suff
                   .. '<|fim_middle|>'
               end,
               suffix = false,
