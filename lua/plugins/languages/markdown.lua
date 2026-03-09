@@ -68,6 +68,7 @@ return {
     opts = {
       workspaces = _obsidian_vaults(),
       ui = { enable = false },
+      legacy_commands = false,
     },
     init = function()
       _G.completion_sources = vim.tbl_extend('force', _G.completion_sources, {
