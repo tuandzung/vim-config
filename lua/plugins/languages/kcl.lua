@@ -7,7 +7,7 @@ return {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {
-        kcl = {},
+        kclls = {},
       },
     },
   },

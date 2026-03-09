@@ -175,7 +175,10 @@ return {
   kcl = {
     filetypes = { 'kcl' },
     parsers = { 'kcl' },
-    lsp_servers = { 'kcl' },
+    lsp_servers = { 'kclls' },
+    linters = {
+      { 'kcl', command = 'kcl lint' },
+    },
     formatters = { 'kcl' },
   },
   latex = {
