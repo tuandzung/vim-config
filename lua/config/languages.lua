@@ -172,6 +172,12 @@ return {
     lsp_servers = { 'jdtls', 'harper_ls' },
     test = { 'neotest-java' },
   },
+  kcl = {
+    filetypes = { 'kcl' },
+    parsers = { 'kcl' },
+    lsp_servers = { 'kcl' },
+    formatters = { 'kcl' },
+  },
   latex = {
     filetypes = { 'tex' },
     parsers = { 'latex' },

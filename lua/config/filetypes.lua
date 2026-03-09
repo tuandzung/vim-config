@@ -42,5 +42,7 @@ vim.filetype.add({
     ['%.env%.[%w_.-]+'] = 'sh',
 
     ['.*%Tiltfile'] = 'tiltfile',
+
+    ['.*%.k'] = 'kcl',
   },
 })
