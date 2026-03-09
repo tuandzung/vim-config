@@ -24,6 +24,7 @@ return {
         ['is-js-file?'] = '.*%.js%.tmpl$',
         ['is-python-file?'] = '.*%.py%.tmpl$',
         ['is-lua-file?'] = '.*%.lua%.tmpl$',
+        ['is-kdl-file?'] = '.*%.kdl%.tmpl$',
       },
     },
   },

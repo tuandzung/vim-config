@@ -391,6 +391,11 @@ return {
     parsers = { 'just' },
     lsp_servers = { 'just_lsp' },
   },
+  kdl = {
+    filetypes = { 'kdl' },
+    parsers = { 'kdl' },
+    formatters = { 'kdlfmt' },
+  },
   make = {
     filetypes = { 'config', 'automake', 'make' },
     parsers = { 'make' },

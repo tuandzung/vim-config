@@ -17,6 +17,7 @@ local enabled_languages = {
   'lua',
   'hyprlang',
   'helm',
+  'kdl',
 }
 
 -- Credit: dynamotn
