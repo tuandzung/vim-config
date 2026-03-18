@@ -12,7 +12,6 @@ return {
         mason = { enabled = false },
       },
     },
-    linters = { 'typos' },
     autopairs = function(_, rule, cond, _)
       local languages_list = require('config.languages')
       local equal_rule_ignored_filetypes = function()
