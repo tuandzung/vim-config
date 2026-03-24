@@ -230,7 +230,7 @@ return {
     parsers = { 'sql' },
     linters = { 'sqlfluff' },
     formatters = {
-      { 'sqlfluff', opts = { args = { 'format', '--dialect=ansi', '-' } } },
+      { 'sqlfluff', opts = { args = { 'format', '-' } } },
     },
   },
   typescript = {
