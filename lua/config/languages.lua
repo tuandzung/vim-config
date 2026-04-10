@@ -204,8 +204,8 @@ return {
     },
     formatters = {
       { 'ruff_fix', command = 'ruff' },
-      { 'ruff_format', command = 'ruff' },
       { 'ruff_organize_imports', command = 'ruff' },
+      { 'ruff_format', command = 'ruff' },
     },
     test = { 'neotest-python' },
   },
