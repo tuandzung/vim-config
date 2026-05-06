@@ -1,20 +1,12 @@
 _G.completion_sources = {}
 return {
-  {
-    -- Fuzzy path source for cmdline
-    'tzachar/cmp-fuzzy-path',
-    dependencies = {
-      'tzachar/fuzzy.nvim',
-      dependencies = {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
-        enabled = vim.fn.executable('make') == 1,
-      },
-    },
-  },
+  'dynamotn/blink-cmp-fuzzy-path', -- Fuzzy path source
   'mikavilpas/blink-ripgrep.nvim', -- Ripgrep
   'Kaiser-Yang/blink-cmp-dictionary', -- Dictionary source
   'hrsh7th/cmp-calc', -- Math calculation
+  'mgalliou/blink-cmp-tmux', -- Tmux buffer source
+  'dynamotn/blink-cmp-zellij', -- Zellij source
+  'garyhurtz/blink_cmp_kitty', -- Kitty source
   'moyiz/blink-emoji.nvim', -- Emoji source
   'MahanRahmati/blink-nerdfont.nvim', -- Nerdfont source
   {
@@ -52,9 +44,12 @@ return {
     dependencies = {
       'saghen/blink.compat',
       'onsails/lspkind.nvim', -- pictograms
-      'cmp-fuzzy-path',
+      'blink-cmp-fuzzy-path',
       'blink-cmp-dictionary',
       'cmp-calc',
+      'blink-cmp-tmux',
+      'blink-cmp-zellij',
+      'blink_cmp_kitty',
       'cmp-dynamic',
       'blink-ripgrep.nvim',
       'blink-emoji.nvim',
@@ -71,7 +66,7 @@ return {
       },
       sources = {
         -- compatible sources from nvim-cmp
-        compat = { 'fuzzy_path', 'calc', 'dynamic' },
+        compat = { 'calc', 'dynamic' },
         providers = {
           path = {
             -- Path sources triggered by "/" interfere with CopilotChat commands
@@ -88,6 +83,30 @@ return {
                 vim.fn.expand('~/.config/dictionaries'),
               },
             },
+          },
+          -- tmux panes
+          tmux = {
+            module = 'blink-cmp-tmux',
+            name = 'tmux',
+            opts = {
+              panes = 'session',
+              capture_history = false,
+              triggered_only = false,
+            },
+          },
+          -- zellij panes
+          zellij = {
+            module = 'blink-cmp-zellij',
+            name = 'zellij',
+            opts = {
+              all_panes = true,
+              triggered_only = false,
+            },
+          },
+          -- kitty windows
+          kitty = {
+            module = 'blink_cmp_kitty',
+            name = 'kitty',
           },
           -- ripgrep all files in folder
           ripgrep = {
@@ -110,10 +129,13 @@ return {
           buffer = {
             opts = {
               get_bufnrs = function()
-                return vim.tbl_filter(
-                  function(bufnr) return vim.bo[bufnr].buftype == '' end,
-                  vim.api.nvim_list_bufs()
-                )
+                local bufs = {}
+                for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+                  if vim.bo[bufnr].buftype == '' then
+                    table.insert(bufs, bufnr)
+                  end
+                end
+                return bufs
               end,
             },
             score_offset = 18,
@@ -126,6 +148,12 @@ return {
               get_cwd = function(_) return require('lazyvim.util.root').get() end,
             },
           },
+          fuzzy_path = {
+            module = 'blink-cmp-fuzzy-path',
+            name = 'fuzzy_path',
+            score_offset = 0,
+            min_keyword_length = 1,
+          },
           lsp = {
             score_offset = 20,
           },
@@ -134,10 +162,6 @@ return {
           },
           cmdline = {
             score_offset = 20,
-          },
-          fuzzy_path = {
-            min_keyword_length = 3,
-            score_offset = -20,
           },
         },
         default = function() return require('util.cmp').setup_default_sources() end,
@@ -174,7 +198,7 @@ return {
         completion = {
           list = { selection = { preselect = false } },
           menu = {
-            auto_show = function(_) return vim.fn.getcmdtype() == ':' end,
+            auto_show = true,
           },
           ghost_text = { enabled = true },
         },
@@ -184,7 +208,7 @@ return {
           if type == '/' or type == '?' then return { 'buffer' } end
           -- Commands
           if type == ':' or type == '@' then
-            return { 'cmdline', 'path', 'fuzzy_path', 'buffer' }
+            return { 'cmdline', 'fuzzy_path', 'path', 'buffer' }
           end
           return {}
         end,
@@ -203,10 +227,11 @@ return {
                 ellipsis = false,
                 text = function(ctx)
                   local icon = ctx.kind_icon
+                  local kind_icons = require('config.defaults').icons.kinds
                   -- Show icon of file when source is Path
                   if
                     vim.tbl_contains(
-                      { 'Path', 'fuzzy_path', 'project_path' },
+                      { 'Path', 'project_path', 'fuzzy_path' },
                       ctx.source_name
                     )
                   then
@@ -214,13 +239,10 @@ return {
                       require('nvim-web-devicons').get_icon(ctx.label)
                     if dev_icon then icon = dev_icon end
                   else
-                    local kind_icons = require('config.defaults').icons.kinds
                     if kind_icons[ctx.source_name] then
                       icon = kind_icons[ctx.source_name]
                     else
-                      icon = require('lspkind').symbolic(ctx.kind, {
-                        mode = 'symbol',
-                      })
+                      icon = require('lspkind').symbol_map[ctx.kind] or ''
                     end
                   end
 
@@ -237,7 +259,7 @@ return {
                     )
                   if
                     vim.tbl_contains(
-                      { 'Path', 'fuzzy_path', 'project_path' },
+                      { 'Path', 'project_path', 'fuzzy_path' },
                       ctx.source_name
                     )
                   then
@@ -274,6 +296,9 @@ return {
         ripgrep = '「FILE」',
         dictionary = '「DICT」',
         calc = '「CALC」',
+        tmux = '「MUX」',
+        zellij = '「MUX」',
+        kitty = '「TERM」',
         dynamic = '「MISC」',
         Cmdline = '「CMD」',
         emoji = '「EMOJI」',
