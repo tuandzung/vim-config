@@ -1,4 +1,8 @@
 local language = require('config.languages').sql
+local cmp_util = require('utils.cmp')
+
+vim.g.omni_sql_default_compl_type = 'syntax'
+vim.g.loaded_sql_completion = true
 
 return {
   {
@@ -10,14 +14,7 @@ return {
     -- UI for engine
     'kristijanhusak/vim-dadbod-ui',
     cmd = { 'DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer' },
-    dependencies = {
-      { 'tpope/vim-dadbod', lazy = true },
-      {
-        'kristijanhusak/vim-dadbod-completion',
-        ft = { 'sql', 'mysql', 'plsql' },
-        lazy = true,
-      },
-    },
+    dependencies = 'vim-dadbod',
     keys = {
       { '<leader>D', '<cmd>DBUIToggle<CR>', desc = 'Toggle DBUI' },
     },
@@ -70,16 +67,9 @@ return {
       sources = {
         compat = { 'dadbod', 'sql' },
         per_filetype = {
-          sql = {
-            'dadbod',
-            'sql',
-            'snippets',
-            'buffer',
-            -- 'ripgrep',
-            'calc',
-            'dynamic',
-            'dictionary',
-          },
+          sql = cmp_util.sources('sql'),
+          mysql = cmp_util.sources('sql'),
+          plsql = cmp_util.sources('sql'),
         },
         providers = {
           dadbod = {

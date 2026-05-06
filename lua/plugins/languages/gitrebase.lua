@@ -1,3 +1,6 @@
+---@diagnostic disable-next-line: unused-local
+local language = require('config.languages').gitrebase
+local cmp_util = require('utils.cmp')
 return {
   {
     -- Completion
@@ -6,13 +9,8 @@ return {
     opts = {
       sources = {
         -- add 'git' to the list
-        default = {
-          'git',
-          'lsp',
-          'snippets',
-          'buffer',
-          'dynamic',
-          'dictionary',
+        per_filetype = {
+          gitrebase = cmp_util.sources('gitrebase'),
         },
         providers = {
           git = {

@@ -1,4 +1,5 @@
 local language = require('config.languages').lua
+local cmp_util = require('utils.cmp')
 
 return {
   {
@@ -32,7 +33,9 @@ return {
             },
           },
         },
-        harper_ls = {},
+        harper_ls = {
+          filetypes = { 'lua' },
+        },
       },
     },
   },
@@ -63,6 +66,9 @@ return {
     'blink.cmp',
     opts = {
       sources = {
+        per_filetype = {
+          lua = cmp_util.sources('lua'),
+        },
         providers = {
           lazydev = {
             name = 'lazydev',

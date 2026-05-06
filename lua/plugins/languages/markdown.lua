@@ -1,4 +1,5 @@
 local language = require('config.languages').markdown
+local cmp_util = require('utils.cmp')
 
 local _obsidian = {
   paths = {
@@ -85,19 +86,7 @@ return {
         -- Not need to have compat for obsidian.nvim, because it is already handled in obsidian.nvim
         -- compat = { 'obsidian' },
         per_filetype = {
-          markdown = {
-            'lsp',
-            'path',
-            'project_path',
-            'snippets',
-            'buffer',
-            'calc',
-            'emoji',
-            'dynamic',
-            'dictionary',
-            'obsidian',
-            'nerdfont',
-          },
+          markdown = cmp_util.sources('markdown'),
         },
       },
     },

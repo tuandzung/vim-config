@@ -164,7 +164,9 @@ return {
             score_offset = 20,
           },
         },
-        default = function() return require('util.cmp').setup_default_sources() end,
+        default = function()
+          return require('utils.cmp').setup_default_sources()
+        end,
         per_filetype = {},
       },
       -- enable fuzzy for input words with every length

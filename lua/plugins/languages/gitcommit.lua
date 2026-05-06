@@ -1,4 +1,5 @@
 local language = require('config.languages').gitcommit
+local cmp_util = require('utils.cmp')
 
 return {
   {
@@ -21,14 +22,8 @@ return {
     },
     opts = {
       sources = {
-        -- add 'git' to the list
-        default = {
-          'git',
-          'lsp',
-          'snippets',
-          'buffer',
-          'dynamic',
-          'dictionary',
+        per_filetype = {
+          gitcommit = cmp_util.sources('gitcommit'),
         },
         providers = {
           git = {
