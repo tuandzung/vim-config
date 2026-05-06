@@ -2,13 +2,10 @@
 return {
   colorscheme = 'catppuccin',
   icons = {
-    misc = {
-      dots = '󰇘',
+    treesitter = {
+      core = ' ',
+      schema = '󰏃 ',
     },
-    ft = {
-      octo = '',
-    },
-    treesitter = ' ',
     lsp = '  ',
     null_ls = '󰉼 ',
     dap = {
@@ -96,14 +93,19 @@ return {
       WhileStatement = '󰑖 ',
 
       cmdline = ' ',
-      supermaven = ' ',
+      copilot = ' ',
       dictionary = ' ',
       calc = ' ',
       sql = ' ',
       dadbod = ' ',
       dap = ' ',
       fish = '󰈺 ',
+      tmux = ' ',
+      zellij = ' ',
+      kitty = ' ',
       git = ' ',
+      emoji = '󰞅 ',
+      nerdfont = '󰀺 ',
     },
   },
   ---@type table<string, string>
