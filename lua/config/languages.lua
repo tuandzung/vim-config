@@ -213,6 +213,7 @@ return {
     filetypes = { 'rust' },
     parsers = { 'rust' },
     lsp_servers = { 'rust_analyzer', 'harper_ls' },
+    dap = { 'codelldb' },
   },
   sass = {
     filetypes = { 'scss', 'sass' },

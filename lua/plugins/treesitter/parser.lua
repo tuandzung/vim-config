@@ -19,6 +19,7 @@ local enabled_languages = {
   'helm',
   'kdl',
   'kcl',
+  'rust',
 }
 
 -- Credit: dynamotn
