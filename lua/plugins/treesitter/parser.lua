@@ -3,6 +3,7 @@ local enabled_languages = {
   'kitty',
   'markdown',
   'terraform',
+  'fish',
   'go',
   'gotmpl',
   'bash',
