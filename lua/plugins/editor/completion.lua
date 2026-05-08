@@ -5,7 +5,7 @@ return {
   'Kaiser-Yang/blink-cmp-dictionary', -- Dictionary source
   'hrsh7th/cmp-calc', -- Math calculation
   'mgalliou/blink-cmp-tmux', -- Tmux buffer source
-  'dynamotn/blink-cmp-zellij', -- Zellij source
+  'tuandzung/blink-cmp-zellij', -- Zellij source
   'garyhurtz/blink_cmp_kitty', -- Kitty source
   'moyiz/blink-emoji.nvim', -- Emoji source
   'MahanRahmati/blink-nerdfont.nvim', -- Nerdfont source
