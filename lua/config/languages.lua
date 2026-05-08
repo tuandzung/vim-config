@@ -453,6 +453,17 @@ return {
     linters = { 'yq' },
     formatters = { 'yq' },
   },
+  rego = {
+    filetypes = { 'rego' },
+    parser = 'rego',
+    lsp_servers = { 'regal' },
+    linters = {
+      { 'opa_check', command = 'opa', mason = { package = 'opa' } },
+    },
+    formatters = {
+      { 'opa_fmt', command = 'opa', mason = { package = 'opa' } },
+    },
+  },
   systemd = {
     filetypes = { 'systemd' },
     parsers = {},

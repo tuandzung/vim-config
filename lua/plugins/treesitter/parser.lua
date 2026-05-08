@@ -20,6 +20,7 @@ local enabled_languages = {
   'kdl',
   'kcl',
   'rust',
+  'rego',
 }
 
 -- Credit: dynamotn
