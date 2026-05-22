@@ -14,6 +14,10 @@ return {
   -- AI CLI
   { import = 'lazyvim.plugins.extras.ai.sidekick' },
   {
+    -- Claude Code
+    import = 'lazyvim.plugins.extras.ai.claudecode',
+  },
+  {
     'saghen/blink.cmp',
     optional = true,
     opts = {
