@@ -29,7 +29,6 @@ M.sources = function(filetype)
     'buffer',
     'calc',
     'tmux',
-    'zellij',
     'emoji',
     'dynamic',
     'dictionary',
