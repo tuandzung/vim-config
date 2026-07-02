@@ -5,6 +5,7 @@ return {
   'Kaiser-Yang/blink-cmp-dictionary', -- Dictionary source
   'hrsh7th/cmp-calc', -- Math calculation
   'mgalliou/blink-cmp-tmux', -- Tmux buffer source
+  'tuandzung/blink-cmp-zellij', -- Zellij source
   'garyhurtz/blink_cmp_kitty', -- Kitty source
   'moyiz/blink-emoji.nvim', -- Emoji source
   'MahanRahmati/blink-nerdfont.nvim', -- Nerdfont source
@@ -47,6 +48,7 @@ return {
       'blink-cmp-dictionary',
       'cmp-calc',
       'blink-cmp-tmux',
+      'blink-cmp-zellij',
       'blink_cmp_kitty',
       'cmp-dynamic',
       'blink-ripgrep.nvim',
@@ -89,6 +91,15 @@ return {
             opts = {
               panes = 'session',
               capture_history = false,
+              triggered_only = false,
+            },
+          },
+          -- zellij panes
+          zellij = {
+            module = 'blink-cmp-zellij',
+            name = 'zellij',
+            opts = {
+              all_panes = true,
               triggered_only = false,
             },
           },
@@ -288,6 +299,7 @@ return {
         dictionary = '「DICT」',
         calc = '「CALC」',
         tmux = '「MUX」',
+        zellij = '「MUX」',
         kitty = '「TERM」',
         dynamic = '「MISC」',
         Cmdline = '「CMD」',
