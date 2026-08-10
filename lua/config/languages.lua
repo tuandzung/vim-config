@@ -389,6 +389,11 @@ return {
     parsers = { 'hyprlang' },
     lsp_servers = { 'hyprls' },
   },
+  ipynb = {
+    filetypes = { 'ipynb' },
+    parsers = { 'ipynb' },
+    formatters = { 'jupytext' },
+  },
   json = {
     filetypes = { 'json', 'jsonc', 'json5' },
     parsers = { 'json5' },

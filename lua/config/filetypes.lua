@@ -37,6 +37,8 @@ vim.filetype.add({
 
     ['.*/hypr/.*%.conf'] = 'hyprlang',
 
+    ['.*%.ipynb'] = 'ipynb',
+
     ['.*/waybar/config'] = 'jsonc',
     ['.*/kitty/.*%.conf'] = 'kitty',
     ['%.env%.[%w_.-]+'] = 'sh',
