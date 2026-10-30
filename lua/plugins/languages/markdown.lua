@@ -3,18 +3,19 @@ local cmp_util = require('utils.cmp')
 
 local _obsidian = {
   paths = {
-    personal = vim.fn.expand("$HOME/Notes/Tuan Dzung's Second Brain"),
+    -- vim.fn.expand() leaves paths containing `'` unexpanded
+    personal = vim.fs.normalize("$HOME/Notes/Tuan Dzung's Second Brain"),
   },
 }
-local _obsidian_vaults = function()
-  local result = {}
-  for name, path in pairs(_obsidian.paths) do
-    table.insert(result, {
-      name = name,
-      path = path,
-    })
+-- Only vaults present on this machine
+local _obsidian_vaults = {}
+local _obsidian_patterns = {}
+for name, path in pairs(_obsidian.paths) do
+  if vim.uv.fs_stat(path) then
+    table.insert(_obsidian_vaults, { name = name, path = path })
+    -- `*` in autocmd patterns also matches `/`, so this covers nested notes
+    table.insert(_obsidian_patterns, path .. '/*.md')
   end
-  return result
 end
 
 return {
@@ -64,27 +65,25 @@ return {
   {
     -- Obsidian
     'obsidian-nvim/obsidian.nvim',
-    ft = language.filetypes,
-    enabled = true,
+    -- Load only for notes inside an existing vault (BufReadPre fires before
+    -- FileType, which obsidian.nvim needs to attach to the first note)
+    event = {
+      { event = 'BufReadPre', pattern = _obsidian_patterns },
+      { event = 'BufNewFile', pattern = _obsidian_patterns },
+    },
+    cmd = 'Obsidian',
+    cond = #_obsidian_vaults > 0,
     opts = {
-      workspaces = _obsidian_vaults(),
+      workspaces = _obsidian_vaults,
       ui = { enable = false },
       legacy_commands = false,
     },
-    init = function()
-      _G.completion_sources = vim.tbl_extend('force', _G.completion_sources, {
-        obsidian = '「NOTE」',
-      })
-    end,
   },
   {
     -- Completion
     'blink.cmp',
-    dependencies = { 'obsidian.nvim' },
     opts = {
       sources = {
-        -- Not need to have compat for obsidian.nvim, because it is already handled in obsidian.nvim
-        -- compat = { 'obsidian' },
         per_filetype = {
           markdown = cmp_util.sources('markdown'),
         },
